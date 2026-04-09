@@ -1,0 +1,14 @@
+/**:
+  ros__parameters:
+    # 是否开启调试模式
+    debug: false
+    # 是否开启串口(上场默认开启，不开启时只发布自瞄假信息和tf树假信息)
+    serial_enable: true
+    # 串口名称 ttyACM0为上位机默认端口 如果有问题就改为ttyUSB0
+    serial_name: "/dev/ttyACM0"
+    # 敌方队伍的颜色表示
+    # 0 表示敌方为红色队伍，1 表示敌方为蓝色队伍
+    enemy_team_color: 1
+    # 兵种类型
+    # 0 哨兵，1 英雄，2 步兵， 3 工程
+    robot_type: 0

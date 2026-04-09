@@ -1,0 +1,115 @@
+name: ROS2-humble
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 缓存 rosdep 目录
+    - name: Cache rosdep directory
+      id: rosdep-cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.ros/rosdep
+        key: rosdep-${{ runner.os }}-${{ hashFiles('**/package.xml') }}
+        restore-keys: |
+          rosdep-${{ runner.os }}-
+
+    # 创建并使用用户可访问的apt缓存目录
+    - name: Setup apt cache directory
+      run: |
+        mkdir -p ~/.apt-cache
+        sudo mount --bind ~/.apt-cache /var/cache/apt/archives
+
+    # 缓存 apt 包
+    - name: Cache apt packages
+      id: apt-cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.apt-cache
+        key: apt-${{ runner.os }}-${{ hashFiles('**/package.xml') }}
+        restore-keys: |
+          apt-${{ runner.os }}-
+
+    # 缓存 ROS 安装目录
+    - name: Cache ROS installation
+      id: ros-cache
+      uses: actions/cache@v3
+      with:
+        path: /opt/ros/humble
+        key: ros-humble-${{ runner.os }}-${{ hashFiles('**/ros2.list') }}
+        restore-keys: |
+          ros-humble-${{ runner.os }}-
+
+    # 缓存 colcon 构建目录
+    - name: Cache colcon build directory
+      id: colcon-cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          build
+          install
+          log
+        key: colcon-${{ runner.os }}-${{ github.sha }}
+        restore-keys: |
+          colcon-${{ runner.os }}-
+
+    # 添加 ROS 2 软件源 (无论缓存是否命中)
+    - name: Add ROS 2 apt repository
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl gnupg lsb-release
+        sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+        sudo apt-get update
+
+    # 安装 ROS 2 Humble (如果缓存未命中)
+    - name: Install ROS 2 Humble
+      if: steps.ros-cache.outputs.cache-hit != 'true'
+      run: |
+        sudo apt-get install -y ros-humble-desktop
+
+    # 安装依赖
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt install -y python3-rosdep
+        sudo rosdep init || true
+        rosdep update
+        rosdep install --from-paths . --ignore-src -r -y
+
+    # 安装其他 ROS 2 工具
+    - name: Install other ROS 2 tools
+      run: |
+        sudo apt-get install -y ros-humble-ament-cmake python3-colcon-common-extensions
+        sudo apt install -y ros-humble-serial-driver
+        sudo apt install -y ros-humble-asio-cmake-module
+        sudo apt install -y ros-humble-ament-cmake-auto
+        sudo apt install -y ros-humble-rosidl-default-generators
+
+    # 构建项目
+    - name: Build project
+      shell: bash
+      run: |
+        source /opt/ros/humble/setup.bash
+        colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -Wno-dev
+
+    # 可选：添加测试步骤
+    # - name: Test project
+    #   shell: bash
+    #   run: |
+    #     source /opt/ros/humble/setup.bash
+    #     source install/setup.bash
+    #     colcon test
+    #     colcon test-result --verbose

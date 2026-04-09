@@ -1,0 +1,12 @@
+.cache
+.vscode/
+__pycache__
+
+build
+install
+log
+
+.clang-format
+
+*.pdf
+*.pyc

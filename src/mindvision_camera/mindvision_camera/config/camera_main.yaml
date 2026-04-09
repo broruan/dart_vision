@@ -1,0 +1,46 @@
+/rm_multi_cam/camera:
+  ros__parameters:
+    camera_name_list: ["test_camera", "cam2", "yuki"]
+    test_camera:
+      record: false
+      size:
+        width: 1280
+        height: 1024
+        Woffset: 0
+        Hoffset: 0
+      trigger:
+        soft_enable: true
+        fps: 100.
+      exposure:
+        time: 500.
+        auto_enable: false
+        auto_target: 60
+    cam2:
+      record: false
+      size:
+        width: 1280
+        height: 1024
+        Woffset: 0
+        Hoffset: 0
+      trigger:
+        soft_enable: true
+        fps: 20.
+      exposure:
+        time: 4321.
+        auto_enable: false
+        auto_target: 60
+    yuki:
+      record: false
+      size:
+        width: 1280
+        height: 1024
+        Woffset: 0
+        Hoffset: 0
+      trigger:
+        soft_enable: true
+        fps: 20.
+      exposure:
+        time: 500.
+        auto_enable: false
+        auto_target: 60
+      

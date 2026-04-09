@@ -1,0 +1,418 @@
+<mxfile host="65bd71144e">
+    <diagram id="S1sXBTvSTUkIlNrKeQKh" name="第 1 页">
+        <mxGraphModel dx="1190" dy="893" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="#000000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="下位机&lt;br&gt;type" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="60" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="上位机&lt;br&gt;话题" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="60" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xA0&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="200" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="communicate&lt;br&gt;函数" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="60" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;rounded=0;shadow=0;" parent="1" source="9" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;shoot_info&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="200" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;rounded=0;shadow=0;" parent="1" source="11" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;GimbalCB&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="200" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;rounded=0;shadow=0;" parent="1" source="14" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; white-space: pre;&quot;&gt;sentry/&lt;/span&gt;cmd_vel&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="680" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;rounded=0;shadow=0;" parent="1" source="15" target="16" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;ChassisCB&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="680" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xA1&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="680" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(86, 156, 214); font-weight: bold;&quot;&gt;云台控制&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="200" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#6a9955&quot;&gt;底盘速度控制&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="680" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="21" target="22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/behaviortree&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/interaction&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace;&quot;&gt;&lt;span style=&quot;color: #6a9955;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="800" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="22" target="23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;p style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;InteractionCB&lt;/span&gt;&lt;/p&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="800" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xA2&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="800" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(106, 153, 85);&quot;&gt;比赛交互控制&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="800" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="33" target="36" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/behaviortree&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/moudle&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="920" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(106, 153, 85);&quot;&gt;模块控制&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="920" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xA3&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="920" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="36" target="35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #9cdcfe;&quot;&gt;MoudleCB&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="920" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="39" target="51" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; background-color: rgb(31, 31, 31);&quot;&gt;0xB0&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(86, 156, 214); font-weight: bold;&quot;&gt;自瞄数据&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="51" target="52" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishAutoaim&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/autoaim&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="&lt;h2&gt;&lt;font color=&quot;#ffffff&quot;&gt;通用&lt;/font&gt;&lt;/h2&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="190" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="&lt;h2&gt;&lt;font color=&quot;#ffffff&quot;&gt;调试&lt;/font&gt;&lt;/h2&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="430" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="云台调试" style="whiteSpace=wrap;html=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="440" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="自瞄调试" style="whiteSpace=wrap;html=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="560" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;shadow=0;" parent="1" source="60" target="61" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;PublishGyroDefault&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="440" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/debug&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/gyro&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="440" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;shadow=0;" parent="1" source="62" target="63" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;PublishAutoaimDefault&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="560" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/debug&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(206, 145, 120);&quot;&gt;/autoaim&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="560" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="&lt;h2&gt;烧饼&lt;/h2&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="-80" y="670" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;我方机器人位置1&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1040" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="68" target="69" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB1&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1040" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="69" target="70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishRobotPosition&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="1040" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/position&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/robot&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1040" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;我方机器人位置2&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1160" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="72" target="73" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB2&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1160" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="73" target="74" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishExRobotePosition&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="1160" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/position&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/exrobot&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1160" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;敌方机器人位置1&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1280" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="76" target="77" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB3&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1280" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="77" target="78" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishEnemyRobotPosition&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="1280" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="78" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/position&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/enemyrobot&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1280" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;敌方机器人位置2&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1400" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="80" target="81" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB4&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1400" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="81" target="82" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishEnemyExRobotPosition&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="1400" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/position&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/enemyexrobot&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1400" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;红方血量&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="93" target="94" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB5&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="94" target="95" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishRedRobotHP&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="1520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/hp&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/redrobot&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;蓝方血量&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1640" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="100" target="102" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB6&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1640" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="102" target="103" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishBlueRobotHP&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="1640" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/hp&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/bluerobot&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1640" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="104" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;建筑血量&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1760" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="106" target="108" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB7&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1760" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="108" target="109" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="108" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishBuildingHP&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="1760" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/hp&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/Building&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="862.5" y="1760" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="118" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;比赛信息&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="1880" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="122" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;shadow=0;" parent="1" source="119" target="120" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" value="&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#b5cea8&quot;&gt;0XB8&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1880" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="123" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;shadow=0;" parent="1" source="120" target="121" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="120" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishGameInfo&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="1880" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="121" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/gameinfo&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="1880" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="124" value="&lt;font color=&quot;#6a9955&quot;&gt;发射状态量&lt;/font&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2240" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="133" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=#B5CEA8;shadow=0;" parent="1" source="125" target="126" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="125" value="&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#b5cea8&quot;&gt;0xBB&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="2240" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="134" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=#B5CEA8;shadow=0;" parent="1" source="126" target="127" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="126" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishShootStatus&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="2240" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="127" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/shootstatus&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="2240" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="135" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;英雄/烧饼&lt;/b&gt;&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=east;rounded=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="2230" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;工程&lt;/b&gt;&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=east;rounded=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="2350" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="138" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;font-weight: bold;&quot;&gt;&lt;font color=&quot;#ff33ff&quot;&gt;机械臂控制&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2360" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="139" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;font-weight: bold;&quot;&gt;&lt;font color=&quot;#ff33ff&quot;&gt;交互控制&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="140" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;font-weight: bold;&quot;&gt;&lt;font color=&quot;#ff33ff&quot;&gt;机械臂信息&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="141" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;font-weight: bold;&quot;&gt;&lt;font color=&quot;#ff33ff&quot;&gt;交互信息&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2720" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="143" target="145" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/engineer&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/arm_control&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace;&quot;&gt;&lt;span style=&quot;color: #6a9955;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="2360" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="145" target="146" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="145" value="&lt;p style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;EngineerArmCB&lt;/span&gt;&lt;/p&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="2360" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="146" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xA4&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="2360" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="147" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="148" target="150" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="148" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/engineer&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/interaction_&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;control&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace;&quot;&gt;&lt;span style=&quot;color: #6a9955;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="2480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="149" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" source="150" target="151" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="150" value="&lt;p style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;EngineerInteractionCB&lt;/span&gt;&lt;/p&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="587.5" y="2480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="151" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xA5&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="332.5" y="2480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="153" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/engineerarm&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace;&quot;&gt;&lt;span style=&quot;color: #6a9955;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="2600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="164" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=14;fontColor=#FF33FF;" parent="1" source="155" target="153" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="155" value="&lt;p style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;EngineerArmCB&lt;/span&gt;&lt;/p&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="587.5" y="2600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="162" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;fontColor=#FF33FF;" parent="1" source="156" target="155" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="156" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xBC&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="332.5" y="2600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="158" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/engineerinteraction&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace;&quot;&gt;&lt;span style=&quot;color: #6a9955;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="2720" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="165" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=14;fontColor=#FF33FF;" parent="1" source="160" target="158" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="160" value="&lt;p style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: rgb(156, 220, 254);&quot;&gt;EngineerArmCB&lt;/span&gt;&lt;/p&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="585" y="2720" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="163" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;fontColor=#FF33FF;" parent="1" source="161" target="160" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="161" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #b5cea8;&quot;&gt;0xBD&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#F0F0F0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="2720" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="166" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;操作反馈&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2000" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="167" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="168" target="170" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="168" value="&lt;span style=&quot;color: rgb(181, 206, 168); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(31, 31, 31); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;0xB9&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="2000" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="169" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" source="170" target="171" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="170" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishCommand&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="2000" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="171" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/command&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="860" y="2000" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="172" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#6a9955&quot;&gt;受击反馈&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="2120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="173" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;shadow=0;" parent="1" source="174" target="176" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="174" value="&lt;font style=&quot;font-size: 14px;&quot; color=&quot;#b5cea8&quot;&gt;0XBA&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="2120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="175" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;shadow=0;" parent="1" source="176" target="177" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="176" value="&lt;div style=&quot;background-color: rgb(31, 31, 31); font-size: 14px; line-height: 19px;&quot;&gt;&lt;font color=&quot;#9cdcfe&quot;&gt;PublishHitted&lt;/font&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#6A9955;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="2120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="177" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/communicate&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;/hitted&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontFamily=Helvetica;fontColor=#9CDCFE;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="862.5" y="2120" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
