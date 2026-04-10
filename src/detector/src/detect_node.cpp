@@ -19,7 +19,7 @@
 int main(int argc, char** argv) {
     rclcpp::init(argc, argv);
     
-    auto node = std::make_shared<detector::VideoDetectorNode>("veido_dector_nade");
+    auto node = std::make_shared<detector::VideoDetectorNode>("veido_dector_node");
     
     try {
         rclcpp::spin(node);

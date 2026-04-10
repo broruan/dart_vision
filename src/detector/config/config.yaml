@@ -1,0 +1,5 @@
+veido_dector_node: 
+  ros__parameters:
+    circularity_thresh: 0.20 # 圆形度阈值
+    aim_area: 200 # 目标面积
+    LIGHT_RADIUS: 0.03 # 目标半径，单位m

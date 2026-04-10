@@ -15,6 +15,15 @@
 using namespace std;
 
 namespace detector {
+  // 初始化内参矩阵
+cv::Mat cameraMatrix = (cv::Mat_<double>(3,3) << 
+    1776.435957, 0.000000, 608.647463,
+    0.000000, 1771.549775, 503.873291,
+    0.000000, 0.000000, 1.000000);
+
+// 初始化畸变系数
+cv::Mat distCoeffs = (cv::Mat_<double>(1,5) << 
+    -0.014475125268044889, 0.10883076621917726, -0.0100935289275683, 0.01123908464042061, 0.0);
 
 /**
  * @brief 检测结果结构体
@@ -81,6 +90,13 @@ struct DetectorConfig {
  * 订阅图像话题、执行检测并发布检测结果或可视化图像
  */
 class VideoDetectorNode : public rclcpp::Node {
+  /**
+   * @brief 定义配置文件变量
+   */
+  private:
+    double ch;
+    int a_area;
+    float LIGHT_RADIUS;
  public:
   /**
    * @brief 构造函数
@@ -90,6 +106,10 @@ class VideoDetectorNode : public rclcpp::Node {
    */
     explicit VideoDetectorNode(const string& node_name);
     ~VideoDetectorNode();
+  /**
+   * @brief 用于图像处理的成员变量
+   */
+  cv::Mat pre_img;
 
   /**
    * @brief 初始化检测器
@@ -130,9 +150,13 @@ class VideoDetectorNode : public rclcpp::Node {
    * @brief 图像回调函数
    */
   void CallBack(const sensor_msgs::msg::Image::SharedPtr msg);
+  /**
+   * @brief 图像处理函数
+   */
+  void dealImg(const sensor_msgs::msg::Image::SharedPtr msg);
 
   /**
-   * @brief 将 OpenCV 图像转换为 ROS2 图像消息
+   * @brief 将 OpenCV 图像转换为 ROS2 图像消息,其实感觉不用
    */
   sensor_msgs::msg::Image::UniquePtr ConvertMatToImageMsg(const cv::Mat& image,
                                                         const std::string& encoding = "bgr8") const;
