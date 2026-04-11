@@ -57,4 +57,14 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
+# 安装配置文件
+install(DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config
+)
+
+# 安装launch文件
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+)
+
 ament_package()

@@ -47,6 +47,7 @@ void CameraForCalibrate::LoopForPublish() {
         image_msg->data.assign(frame_->datastart, frame_->dataend);
 
         image_publisher_->publish(std::move(image_msg));
+        // RCLCPP_INFO(this->get_logger(), "Image size: %d x %d", frame_->cols, frame_->rows);
     }
 }
 
