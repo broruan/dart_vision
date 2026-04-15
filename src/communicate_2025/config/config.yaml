@@ -3,7 +3,7 @@
     # 是否开启调试模式
     debug: false
     # 是否开启串口(上场默认开启，不开启时只发布自瞄假信息和tf树假信息)
-    serial_enable: true
+    serial_enable: false
     # 串口名称 ttyACM0为上位机默认端口 如果有问题就改为ttyUSB0
     serial_name: "/dev/ttyACM0"
     # 敌方队伍的颜色表示

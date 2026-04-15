@@ -17,6 +17,7 @@ typedef struct Protocol {
                          *      哨兵：
                          *       上位机发下位机
                          *      0xA0     自瞄云台控制
+                         *      0xA6     自瞄云台控制（含距离），飞镖用
                          *      0xA1     底盘控制
                          *      0xA2     比赛交互控制
                          *      0xA3     车体模块控制
@@ -88,6 +89,14 @@ typedef struct GimbalControl_s {
     float yaw;
     float pitch;
 } GimbalControl;
+
+// 0xA6 自瞄云台控制（含距离，飞镖用）
+typedef struct GimbalControlWithDist_s {
+    char find_bools;
+    float yaw;
+    float pitch;
+    float dist;
+} GimbalControlWithDist;
 
 // 0xA1 底盘控制
 typedef struct ChassisControl_s {

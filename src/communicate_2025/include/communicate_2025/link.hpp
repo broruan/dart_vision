@@ -68,6 +68,13 @@ public:
      */
     void PublishAutoaimDefault(rclcpp::PublisherBase::SharedPtr pub);
 
+    /**
+     * @brief 发布检测信息假数据话题
+     * @note 仅在debug模式下使用，供detector调试
+     * @param pub 发布者
+     */
+    void PublishDetectInfoDefault(rclcpp::PublisherBase::SharedPtr pub);
+
     /*
     串口通信部分
     */
@@ -83,6 +90,11 @@ public:
      * @brief 订阅云台控制话题回调函数
      */
     void GimbalCB(const communicate_2025::msg::SerialInfo::SharedPtr msg);
+
+    /**
+     * @brief 订阅带距离的云台控制话题回调函数，飞镖用
+     */
+    void GimbalWithDistCB(const communicate_2025::msg::SerialInfo::SharedPtr msg);
 
     /**
      * @brief 订阅底盘速度控制话题回调函数
@@ -227,12 +239,13 @@ private:
     调试通信部分
     */
 
-    // 调试功能ID : 0-1
+    // 调试功能ID : 0-2
     enum FunctionID_Debug {
         GYRO_DEFAULT = 0, // tf树假信息
         AUTOAIM_DEFAULT,  // 自瞄假信息
+        DETECT_INFO_DEFAULT,  // 检测信息假数据
     };
-    rclcpp::PublisherBase::SharedPtr Debug_Pub_[2]; // 发布者
+    rclcpp::PublisherBase::SharedPtr Debug_Pub_[3]; // 发布者
 
     // TODO : 加一个可选的直接发布 tf 树功能
 
@@ -252,6 +265,8 @@ private:
     // 串口回调
     rclcpp::Subscription<communicate_2025::msg::SerialInfo>::SharedPtr
         Autoaim_sub;                                                        // 自瞄控制订阅者
+    rclcpp::Subscription<communicate_2025::msg::SerialInfo>::SharedPtr
+        AutoaimWithDist_sub;                                                // 带距离的自瞄控制订阅者
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr Chassis_sub; // 底盘控制订阅者
     rclcpp::Subscription<std_msgs::msg::Int32MultiArray>::SharedPtr
         Interaction_sub; // 比赛交互控制订阅者

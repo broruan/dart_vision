@@ -12,6 +12,7 @@
 #include <sensor_msgs/msg/image.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <cv_bridge/cv_bridge.hpp>
+#include <communicate_2025/msg/serial_info.hpp>
 
 // using namespace std;
 // 需要写进yaml中的参数：HSV颜色范围、可选：开和闭运算的kernel、拟合圆半径误差
@@ -262,6 +263,21 @@ namespace detector{
     std::string info = cv::format("D:%.2fm Y:%.1f P:%.1f", dist, yaw, pitch);
     cv::putText(current_image_, info, {0, 150},
                 cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+
+
+
+    
+    /*
+        发布数据到下位机
+    */
+    auto pub = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);                                                                                                                  
+                                                                                                                                                                                                           
+    communicate_2025::msg::SerialInfo msg;                                                                                                                                                                     
+    msg.yaw = yaw;                                                                                                                                                                                           
+    msg.pitch = pitch;                                                                                                                                                                                         
+    msg.dist = dist;    // 新增
+    msg.is_find.data = found ? 1 : 0;                                                                                                                                                                          
+    pub->publish(msg);  
     }
     cv::imshow("Green Light Detection", current_image_);
     cv::imshow("color split", mask);

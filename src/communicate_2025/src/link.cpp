@@ -74,6 +74,7 @@ void RMLink::Recv() {
     if (!this->serial_enable_) {
         this->PublishGyroDefault(this->Debug_Pub_[GYRO_DEFAULT]);
         this->PublishAutoaimDefault(this->Debug_Pub_[AUTOAIM_DEFAULT]);
+        this->PublishDetectInfoDefault(this->Debug_Pub_[DETECT_INFO_DEFAULT]);
         return;
     }
 
@@ -150,6 +151,10 @@ void RMLink::Init_Pub_and_Sub() {
         );
         this->Debug_Pub_[AUTOAIM_DEFAULT] = this->create_publisher<communicate_2025::msg::Autoaim>(
             "/communicate/debug/autoaim",
+            rclcpp::SystemDefaultsQoS()
+        );
+        this->Debug_Pub_[DETECT_INFO_DEFAULT] = this->create_publisher<communicate_2025::msg::SerialInfo>(
+            "/detect_info",
             rclcpp::SystemDefaultsQoS()
         );
     }
@@ -274,6 +279,11 @@ void RMLink::Init_Pub_and_Sub() {
             rclcpp::SystemDefaultsQoS(),
             std::bind(&RMLink::GimbalCB, this, std::placeholders::_1)
         );
+        this->AutoaimWithDist_sub = this->create_subscription<communicate_2025::msg::SerialInfo>(
+            "/detect_info",
+            rclcpp::SystemDefaultsQoS(),
+            std::bind(&RMLink::GimbalWithDistCB, this, std::placeholders::_1)
+        );
     }
 
     if (this->robot_type_ == SENTINEL) {
@@ -342,6 +352,18 @@ void RMLink::PublishAutoaimDefault(rclcpp::PublisherBase::SharedPtr pub) {
     pub_completed->publish(msg);
 }
 
+// 发布检测信息假数据话题
+void RMLink::PublishDetectInfoDefault(rclcpp::PublisherBase::SharedPtr pub) {
+    communicate_2025::msg::SerialInfo msg;
+    msg.yaw = 0;
+    msg.pitch = 0;
+    msg.dist = 0;
+    msg.is_find.data = 0;
+    rclcpp::Publisher<communicate_2025::msg::SerialInfo>::SharedPtr pub_completed =
+        std::dynamic_pointer_cast<rclcpp::Publisher<communicate_2025::msg::SerialInfo>>(pub);
+    pub_completed->publish(msg);
+}
+
 /*
 串口通信部分
 */
@@ -379,6 +401,19 @@ void RMLink::GimbalCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
     tmp.yaw = msg->yaw;
     tmp.pitch = msg->pitch;
     RMLink::Send(0xA0, &tmp);
+}
+
+// 订阅带距离的自瞄控制话题回调函数
+void RMLink::GimbalWithDistCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
+    if (!this->serial_enable_) {
+        return;
+    }
+    GimbalControlWithDist tmp;
+    tmp.find_bools = msg->is_find.data;
+    tmp.yaw = msg->yaw;
+    tmp.pitch = msg->pitch;
+    tmp.dist = msg->dist;
+    RMLink::Send(0xA6, &tmp);
 }
 
 /**
