@@ -272,7 +272,8 @@ void RMLink::Init_Pub_and_Sub() {
 
     //TODO: 话题名称写进 config 文件中
     // 创建订阅者
-    if (this->robot_type_ == INFANTRY || this->robot_type_ == HERO || this->robot_type_ == SENTINEL)
+    // 增加飞镖类型
+    if (this->robot_type_ == INFANTRY || this->robot_type_ == HERO || this->robot_type_ == SENTINEL || this->robot_type_ == DART)
     {
         this->Autoaim_sub = this->create_subscription<communicate_2025::msg::SerialInfo>(
             "/shoot_info",
@@ -282,7 +283,7 @@ void RMLink::Init_Pub_and_Sub() {
         this->AutoaimWithDist_sub = this->create_subscription<communicate_2025::msg::SerialInfo>(
             "/detect_info",
             rclcpp::SystemDefaultsQoS(),
-            std::bind(&RMLink::GimbalWithDistCB, this, std::placeholders::_1)
+            std::bind(&RMLink::GimbalWithVelCB, this, std::placeholders::_1)
         );
     }
 
@@ -357,7 +358,7 @@ void RMLink::PublishDetectInfoDefault(rclcpp::PublisherBase::SharedPtr pub) {
     communicate_2025::msg::SerialInfo msg;
     msg.yaw = 0;
     msg.pitch = 0;
-    msg.dist = 0;
+    msg.velocity = 0;
     msg.is_find.data = 0;
     rclcpp::Publisher<communicate_2025::msg::SerialInfo>::SharedPtr pub_completed =
         std::dynamic_pointer_cast<rclcpp::Publisher<communicate_2025::msg::SerialInfo>>(pub);
@@ -404,15 +405,15 @@ void RMLink::GimbalCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
 }
 
 // 订阅带距离的自瞄控制话题回调函数
-void RMLink::GimbalWithDistCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
+void RMLink::GimbalWithVelCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
     if (!this->serial_enable_) {
         return;
     }
-    GimbalControlWithDist tmp;
+    GimbalControlWithVel tmp;
     tmp.find_bools = msg->is_find.data;
     tmp.yaw = msg->yaw;
     tmp.pitch = msg->pitch;
-    tmp.dist = msg->dist;
+    tmp.velocity = msg->velocity;
     RMLink::Send(0xA6, &tmp);
 }
 

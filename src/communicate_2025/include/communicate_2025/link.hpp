@@ -12,7 +12,7 @@
 
 #include "protocol.hpp"
 
-enum Robot_Type { SENTINEL = 0, HERO, INFANTRY, ENGINEER };
+enum Robot_Type { SENTINEL = 0, HERO, INFANTRY, ENGINEER, DART};
 
 class RMLink: public rclcpp::Node {
 public:
@@ -92,9 +92,9 @@ public:
     void GimbalCB(const communicate_2025::msg::SerialInfo::SharedPtr msg);
 
     /**
-     * @brief 订阅带距离的云台控制话题回调函数，飞镖用
+     * @brief 订阅带速度的云台控制话题回调函数，飞镖用
      */
-    void GimbalWithDistCB(const communicate_2025::msg::SerialInfo::SharedPtr msg);
+    void GimbalWithVelCB(const communicate_2025::msg::SerialInfo::SharedPtr msg);
 
     /**
      * @brief 订阅底盘速度控制话题回调函数
@@ -266,7 +266,7 @@ private:
     rclcpp::Subscription<communicate_2025::msg::SerialInfo>::SharedPtr
         Autoaim_sub;                                                        // 自瞄控制订阅者
     rclcpp::Subscription<communicate_2025::msg::SerialInfo>::SharedPtr
-        AutoaimWithDist_sub;                                                // 带距离的自瞄控制订阅者
+        AutoaimWithDist_sub;                                                // 带距离的自瞄控制订阅者,飞镖
     rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr Chassis_sub; // 底盘控制订阅者
     rclcpp::Subscription<std_msgs::msg::Int32MultiArray>::SharedPtr
         Interaction_sub; // 比赛交互控制订阅者

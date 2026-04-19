@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 #include <optional>
+#include <cmath>
+#include <tuple>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
@@ -26,21 +28,39 @@ namespace detector{
         this->ch = this->declare_parameter("circularity_thresh",0.7);
         this->a_area = this->declare_parameter("aim_area",200);
         this->LIGHT_RADIUS = this->declare_parameter("LIGHT_RADIUS",0.03);
+        this->mass = this->declare_parameter("mass",0.20);
+        this->area = this->declare_parameter("area",0.001);
+        this->cd = this->declare_parameter("cd",0.3);
+        this->rho = this->declare_parameter("rho",1.255);
+        this->g = this->declare_parameter("g",9.80665);
+        this->dt = this->declare_parameter("dt",0.001);
+        this->tolerance = this->declare_parameter("tolerance",0.005);
+        this->max_possible_v0 = this->declare_parameter("max_possible_v0",50.0);
+        this->K = this->declare_parameter("K", 0.00091875);
+
+
+
         // 订阅图像话题
         image_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
             "/image_pub",
             rclcpp::SensorDataQoS().keep_last(1),
             std::bind(&VideoDetectorNode::dealImg, this, std::placeholders::_1));
-        // 创建OpenCV窗口
-        cv::namedWindow("Camera", cv::WINDOW_AUTOSIZE);
-        }
+
+        // 发布话题
+        serial_pub_ = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);
+        // serial_sub_ = this->create_subscription<communicate_2025::msg::SerialInfo>("/detect_info", rclcpp::SystemDefaultsQoS(),
+        //     std::bind(&VideoDetectorNode::Callback, this, std::placeholders::_1))
+
+        } 
         // 析构释放
         VideoDetectorNode::~VideoDetectorNode() {
             cv::destroyAllWindows();
             RCLCPP_INFO(this->get_logger(), "Video Capture Node Destroyed");
         }
     
-    
+    void VideoDetectorNode::Callback(){
+
+    };
     void VideoDetectorNode::dealImg(const sensor_msgs::msg::Image::SharedPtr msg){
         RCLCPP_INFO(this->get_logger(),"Img read successfully!Start to deal!");
     try{
@@ -100,6 +120,7 @@ namespace detector{
     std::vector<cv::Point> true_contour;
 
     bool found = false;
+    double min_area = 100000;
 
     for (auto& contour : contours) {
         double area = cv::contourArea(contour);
@@ -124,8 +145,9 @@ namespace detector{
                       std::max(ellipses.size.width, ellipses.size.height);
         if (ratio < 0.5f) continue;
 
-        // 选面积最大的目标
-        if (!found || area > cv::contourArea(contours[0])) {
+        // 选面积最小的目标
+        if (!found || (area < min_area)) {
+            min_area = area;
             best_ellipse = ellipses;
             found = true;
         }
@@ -136,8 +158,8 @@ namespace detector{
     //     RCLCPP_WARN(this->get_logger(), "No green light detected.");
     //     return;
     // }
-    std::cout << ellipses.size << std::endl;
-    if(true_contour.size() != 0){
+    std::cout << best_ellipse.size << std::endl;
+    if(best_ellipse.size.width != 0){
 
     // ─────────────────────────────────────────
     // 4. 从拟合椭圆提取8个图像点（与3D点对应）
@@ -168,38 +190,45 @@ namespace detector{
         std::vector<cv::Point2f> image_points;
         std::vector<cv::Point3f> object_points;
         // 用椭圆中心估计圆心的位置
-        cv::Point2f center_2d = ellipses.center;
+        cv::Point2f center_2d = best_ellipse.center;
+
+
         // 取8个点
-        int step = std::max(1, int(true_contour.size() / N));// 取点的间隔数
-        for(int i=0; i<N && i*step <= true_contour.size(); ++i){
-            cv::Point2f p_2d = true_contour[i * step];
-            image_points.push_back(cv::Point2f(p_2d.x - 0.2, p_2d.y - 0.2));
+        for(int i=0; i<N; ++i){
+            double theta = 2.0 * CV_PI * i / N;  // 均匀取 N 个角度                                                                                                                                                
+            float a = best_ellipse.size.width  / 2.0f;                                                                                                                                                             
+            float b = best_ellipse.size.height / 2.0f;
+            float angle_rad = best_ellipse.angle * CV_PI / 180.0f;// 转成弧度                                                                                                                                                 
+                                                                                                                                                                                                             
+            // 椭圆参数方程，计算椭圆边界上的点（已旋转）                                                                                                                                                          
+            float px = best_ellipse.center.x + a * std::cos(theta) * std::cos(angle_rad)
+                                      - b * std::sin(theta) * std::sin(angle_rad);                                                                                                                           
+            float py = best_ellipse.center.y + a * std::cos(theta) * std::sin(angle_rad)
+                                      + b * std::sin(theta) * std::cos(angle_rad);                                                                                                                           
+   
+            image_points.push_back(cv::Point2f(px, py)); 
             // 对应的3D点：从圆心方向推断该点在圆上的角度
             // 用该点相对椭圆中心的角度，映射回3D圆的角度
-            float dx = p_2d.x - center_2d.x;
-            float dy = p_2d.y - center_2d.y;
+            float dx = px - center_2d.x;
+            float dy = py - center_2d.y;
 
             // 去掉椭圆旋转角的影响，还原到对齐坐标系
-            float angle_rad = ellipses.angle * CV_PI / 180.0f;
             float dx_local =  dx * std::cos(angle_rad) + dy * std::sin(angle_rad);
             float dy_local = -dx * std::sin(angle_rad) + dy * std::cos(angle_rad);
 
-            float a = ellipses.size.width  / 2.0f;
-            float b = ellipses.size.height / 2.0f;
-
             // 归一化后得到3D圆上的角度
-            float theta = std::atan2(dy_local / b, dx_local / a);
+            float theta_3D = std::atan2(dy_local / b, dx_local / a);
 
             object_points.emplace_back(
-                this->LIGHT_RADIUS * std::cos(theta),
-                this->LIGHT_RADIUS * std::sin(theta),
+                this->LIGHT_RADIUS * std::cos(theta_3D),
+                this->LIGHT_RADIUS * std::sin(theta_3D),
                 0.0f
             );
         }
 
-        float b = (std::min(ellipses.size.height, ellipses.size.width)) / 2.0f;
+        float radius_img = (std::min(best_ellipse.size.height, best_ellipse.size.width)) / 2.0f;
         double f = cameraMatrix.at<double>(0,0); // fx
-        double dist = (f * (this->LIGHT_RADIUS) / b) * 2; 
+        double dist = (f * (this->LIGHT_RADIUS) / radius_img) * 2; 
 
 
     // ─────────────────────────────────────────
@@ -232,10 +261,10 @@ namespace detector{
     // 欧氏距离
     double distance = std::sqrt(tx*tx + ty*ty + tz*tz);
 
-    // Yaw：目标在相机水平方向的偏角（绕Y轴）
+    // Yaw：目标在相机水平方向的偏角（绕Y轴），右正左负
     double yaw   = std::atan2(tx, tz) * 180.0 / CV_PI;
 
-    // Pitch：目标在相机竖直方向的偏角（绕X轴，注意Y轴朝下）
+    // Pitch：目标在相机竖直方向的偏角（绕X轴，注意Y轴朝下），上正下负
     double pitch = std::atan2(-ty, tz) * 180.0 / CV_PI;
 
     RCLCPP_INFO(this->get_logger(),
@@ -246,7 +275,7 @@ namespace detector{
     // 7. 可视化（调试用）
     // ─────────────────────────────────────────
 
-    cv::ellipse(current_image_, ellipses, {0, 255, 0}, 2);
+    cv::ellipse(current_image_, best_ellipse, {0, 255, 0}, 2);
     cv::circle(current_image_, center_2d, 4, {0, 0, 255}, -1);
 
     // 投影3D轴到图像平面，验证解算结果
@@ -260,24 +289,25 @@ namespace detector{
     cv::arrowedLine(current_image_, projected[0], projected[2], {0,255,0},   2); // Y 绿
     cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
 
-    std::string info = cv::format("D:%.2fm Y:%.1f P:%.1f", dist, yaw, pitch);
+    std::string info = cv::format("D:%.2fm Y:%.1f P:%.1f", distance, yaw, pitch);
     cv::putText(current_image_, info, {0, 150},
                 cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
 
-
-
+    auto [success, velocity] = this->solveVelocity(pitch, dist);
+    communicate_2025::msg::SerialInfo msg; 
+    if(success){
+        cv::putText(current_image_, cv::format("Velocity: %.2f m/s", velocity), {0, 250}, cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+        msg.velocity = velocity;    // 新增
+        }
+    
     
     /*
         发布数据到下位机
-    */
-    auto pub = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);                                                                                                                  
-                                                                                                                                                                                                           
-    communicate_2025::msg::SerialInfo msg;                                                                                                                                                                     
+    */                                                                                                                 
     msg.yaw = yaw;                                                                                                                                                                                           
     msg.pitch = pitch;                                                                                                                                                                                         
-    msg.dist = dist;    // 新增
     msg.is_find.data = found ? 1 : 0;                                                                                                                                                                          
-    pub->publish(msg);  
+    serial_pub_->publish(msg); 
     }
     cv::imshow("Green Light Detection", current_image_);
     cv::imshow("color split", mask);
@@ -293,28 +323,57 @@ catch (cv_bridge::Exception& e) {
     }
 
 
-    // void VideoDetectorNode::CallBack(const sensor_msgs::msg::Image::SharedPtr msg){
-    //     try {
-    //         // 转换ROS图像消息为OpenCV Mat
-    //         cv_bridge::CvImagePtr cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
-    //         current_image_ = cv_ptr->image.clone();
-    //         // 此图像用于图像处理
-    //         this->pre_img = current_image_.clone();
-            
-    //         // 在图像上添加说明文字
-    //         cv::Mat display_image = current_image_.clone();
-    //         cv::putText(display_image, "Press ESC to exit", 
-    //                cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar(0, 255, 0), 2);
-    //         cv::putText(display_image, "Images captured", 
-    //                cv::Point(10, 60), cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar(0, 255, 0), 2);
-        
-    //         // 显示图像
-    //         cv::imshow("Camera Calibration", display_image);
-        
-    //         // 处理按键
-    //         int key = cv::waitKey(1) & 0xFF;
-    //         if (key == 27) { // ESC键
-    //             RCLCPP_INFO(this->get_logger(), "Exit requested by user");
-    //             rclcpp::shutdown();
-    //         }
+ double VideoDetectorNode::simulateFlight(const double& pitch, const double& dist, const double& test_v0){
+    double target_x = dist * std::cos(pitch);// 目标水平距离
+    double x = 0.0;
+    double y = 0.0;
+    double vx = test_v0 * std::cos(pitch);
+    double vy = test_v0 * std::sin(pitch);
+
+    while (x < target_x) {
+        double v = std::sqrt(vx * vx + vy * vy);
+        double ax = -(this->K) * v * vx;
+        double ay = -(this->g) - K * v * vy;
+
+        vx += ax * this->dt;
+        vy += ay * this->dt;
+        x  += vx * this->dt;
+        y  += vy * this->dt;
+
+        // 如果已经落地很深，提前终止
+        if (y < -5.0) break; 
+    }
+    return y;
+
+
+ };
+ std::tuple<bool, double> VideoDetectorNode::solveVelocity(const double& pitch, const double& dist){
+    double target_y = dist * std::sin(pitch);// 发射口距离目标高度
+    
+    // 二分法搜索所需速度
+    double min_v = 0.0;
+    double max_v = this->max_possible_v0;
+    double mid_v = 0.0;
+    int max_iter = 100;
+    int iter = 0;
+
+    while (iter < max_iter) {
+        mid_v = (min_v + max_v) / 2.0;
+        double sim_y = simulateFlight(pitch, dist, mid_v);
+        // 检查误差
+        if (std::abs(sim_y - target_y) < this->tolerance) {
+            return {true, mid_v}; 
+        }
+        // 速度与高度正相关：打低了就加速，打高了就减速
+        if (sim_y < target_y) {
+            min_v = mid_v; // 速度不够，打低了
+        } else {
+            max_v = mid_v; // 速度过大，打高了
+        }
+        iter++;
+    }
+    std::cerr << "need faster max_velocity!!!" << std::endl;
+    return {false, 0.0}; 
 }
+
+}// namespace detector

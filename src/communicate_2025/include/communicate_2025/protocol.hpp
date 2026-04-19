@@ -90,13 +90,13 @@ typedef struct GimbalControl_s {
     float pitch;
 } GimbalControl;
 
-// 0xA6 自瞄云台控制（含距离，飞镖用）
-typedef struct GimbalControlWithDist_s {
+// 0xA6 自瞄云台控制（含初速度，飞镖用）
+typedef struct GimbalControlWithVel_s {
     char find_bools;
     float yaw;
     float pitch;
-    float dist;
-} GimbalControlWithDist;
+    float velocity; //改为速度
+} GimbalControlWithVel;
 
 // 0xA1 底盘控制
 typedef struct ChassisControl_s {

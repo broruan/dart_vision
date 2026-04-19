@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 project(detector)
 
-# ���ñ���ѡ��
+# 配置编译选项
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -std=c++17)
 endif()
 
-# 1. ��������
+# 1. 查找依赖
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -15,7 +15,7 @@ find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(communicate_2025 REQUIRED)
 
-# 2. ������ (������ main ����)
+# 2. 编译库 (除了带 main 的)
 add_library(detector_lib SHARED
   src/detect.cpp
 )
@@ -23,10 +23,10 @@ add_library(detector_lib SHARED
 target_include_directories(detector_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
-  ${OpenCV_INCLUDE_DIRS} # ��ʽ���� OpenCV ͷ�ļ�
+  ${OpenCV_INCLUDE_DIRS} # 引入 OpenCV 头文件
 )
 
-# ʹ�� ament �ļ�㷽ʽ���� ROS ����
+# 使用 ament 文件方式链接 ROS 依赖
 ament_target_dependencies(detector_lib
   rclcpp
   sensor_msgs
@@ -35,20 +35,20 @@ ament_target_dependencies(detector_lib
   communicate_2025
 )
 
-# ���� OpenCV
+# 链接 OpenCV
 target_link_libraries(detector_lib
   ${OpenCV_LIBRARIES}
 )
 
-# 3. ������ִ���ļ� (��������Ŀ�)
-# ��������һ�� src/detect_node.cpp ����д�� int main()
+# 3. 编译可执行文件 (没有带 main 的)
+# 这里需要一个 src/detect_node.cpp 里面写上 int main()
 add_executable(video_detector_node src/detect_node.cpp)
 
 target_link_libraries(video_detector_node
   detector_lib
 )
 
-# 4. ��װ
+# 4. 安装
 install(TARGETS detector_lib video_detector_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
@@ -59,12 +59,12 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-# ��װ�����ļ�
+# 安装配置文件
 install(DIRECTORY config/
   DESTINATION share/${PROJECT_NAME}/config
 )
 
-# ��װlaunch�ļ�
+# 安装launch文件
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )

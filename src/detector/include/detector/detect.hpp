@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <tuple>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
@@ -12,6 +13,7 @@
 #include <sensor_msgs/msg/image.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <cv_bridge/cv_bridge.hpp>
+#include <communicate_2025/msg/serial_info.hpp>
 using namespace std;
 
 namespace detector {
@@ -96,7 +98,16 @@ class VideoDetectorNode : public rclcpp::Node {
   private:
     double ch;
     int a_area;
-    float LIGHT_RADIUS;
+    float LIGHT_RADIUS;           //识别半径
+    double mass;                  // 物体质量 (kg)
+    double area;                  // 迎风面积 (m^2)
+    double cd;                    // 风阻系数
+    double rho;                   // 空气密度 (kg/m^3)
+    double g;                     // 重力加速度 (m/s^2)
+    double dt;                    // 积分时间步长
+    double tolerance;             // 误差容忍度 (m)
+    double max_possible_v0;       // 发射机构能达到的最大初速度 (m/s)
+    double K;                     // 阻力系数
  public:
   /**
    * @brief 构造函数
@@ -109,7 +120,7 @@ class VideoDetectorNode : public rclcpp::Node {
   /**
    * @brief 用于图像处理的成员变量
    */
-  cv::Mat pre_img;
+    cv::Mat pre_img;
 
   /**
    * @brief 初始化检测器
@@ -146,14 +157,23 @@ class VideoDetectorNode : public rclcpp::Node {
 //   bool IsReady() const;
 
  protected:
-  /**
-   * @brief 图像回调函数
-   */
-  void CallBack(const sensor_msgs::msg::Image::SharedPtr msg);
+  // /**
+  //  * @brief 图像回调函数
+  //  */
+  // void CallBack(const sensor_msgs::msg::Image::SharedPtr msg);
+  void Callback();
   /**
    * @brief 图像处理函数
    */
   void dealImg(const sensor_msgs::msg::Image::SharedPtr msg);
+  /**
+   * @brief 模拟飞行，返回到达目标水平距离时的高度
+   */
+  double simulateFlight(const double& pitch, const double& dist, const double& test_v0);
+  /**
+   * @brief 使用二分法求解所需的初速度
+   */
+  std::tuple<bool, double> solveVelocity(const double& pitch, const double& dist);
 
   /**
    * @brief 将 OpenCV 图像转换为 ROS2 图像消息,其实感觉不用
@@ -174,6 +194,8 @@ class VideoDetectorNode : public rclcpp::Node {
 
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr image_sub_;
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr image_pub_;
+  rclcpp::Publisher<communicate_2025::msg::SerialInfo>::SharedPtr serial_pub_;
+  // rclcpp::Subscription<communicate_2025::msg::SerialInfo>::SharedPtr serial_sub_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr text_pub_;
 };
 
