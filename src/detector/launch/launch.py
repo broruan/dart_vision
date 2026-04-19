@@ -20,6 +20,12 @@ def generate_launch_description():
                 output='screen',
                 parameters=[config],
             ),
+            Node(
+                package='detector',
+                executable='orbti_calculate',
+                output='screen',
+                parameters=[config],
+            )
         ]
     )
     ld = LaunchDescription()

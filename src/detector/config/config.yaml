@@ -12,3 +12,11 @@ veido_dector_node:
     tolerance: 0.005                      # 误差容忍度 (m)
     max_possible_v0: 200.0                 # 发射机构能达到的最大初速度 (m/s)*
     K: 0.00091875                         # 阻力系数 K = (0.5 * config.rho * config.cd * config.area) / config.mass *
+
+orbti_calculate:                                                              
+  ros__parameters:
+    g: 9.80665                                                                
+    dt: 0.001   
+    tolerance: 0.005
+    max_possible_v0: 200.0
+    K: 0.00091875
