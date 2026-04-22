@@ -25,7 +25,13 @@ def generate_launch_description():
                 executable='orbti_calculate',
                 output='screen',
                 parameters=[config],
-            )
+            ),
+            Node(
+                package='camera',
+                executable='camera_for_calibrate',
+                output='screen',
+                parameters=[config],
+            ),
         ]
     )
     ld = LaunchDescription()

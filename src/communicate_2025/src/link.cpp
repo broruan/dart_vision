@@ -358,7 +358,7 @@ void RMLink::PublishDetectInfoDefault(rclcpp::PublisherBase::SharedPtr pub) {
     communicate_2025::msg::SerialInfo msg;
     msg.yaw = 0;
     msg.pitch = 0;
-    msg.velocity = 0;
+    msg.s = 0;
     msg.is_find.data = 0;
     rclcpp::Publisher<communicate_2025::msg::SerialInfo>::SharedPtr pub_completed =
         std::dynamic_pointer_cast<rclcpp::Publisher<communicate_2025::msg::SerialInfo>>(pub);
@@ -404,7 +404,7 @@ void RMLink::GimbalCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
     RMLink::Send(0xA0, &tmp);
 }
 
-// 订阅带距离的自瞄控制话题回调函数
+// 订阅飞镖的自瞄控制话题回调函数
 void RMLink::GimbalWithVelCB(const communicate_2025::msg::SerialInfo::SharedPtr msg) {
     if (!this->serial_enable_) {
         return;
@@ -413,7 +413,7 @@ void RMLink::GimbalWithVelCB(const communicate_2025::msg::SerialInfo::SharedPtr 
     tmp.find_bools = msg->is_find.data;
     tmp.yaw = msg->yaw;
     tmp.pitch = msg->pitch;
-    tmp.velocity = msg->velocity;
+    tmp.s = msg->s;
     RMLink::Send(0xA6, &tmp);
 }
 

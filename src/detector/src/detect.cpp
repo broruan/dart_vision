@@ -43,9 +43,13 @@ namespace detector{
             std::bind(&VideoDetectorNode::dealImg, this, std::placeholders::_1));
 
         vel_sub_ = this->create_subscription<detector::msg::DealImg>(
-            "/vel_pub",
+            "/velocity",
             rclcpp::SensorDataQoS().keep_last(1),
             std::bind(&VideoDetectorNode::CallBack, this, std::placeholders::_1));
+
+        // 创建发布
+        serial_pub_ = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);
+        result_pub_ = this->create_publisher<detector::msg::DealImg>("/deal_img",10);
 
 
         // serial_sub_ = this->create_subscription<communicate_2025::msg::SerialInfo>("/detect_info", rclcpp::SystemDefaultsQoS(),
@@ -283,21 +287,33 @@ namespace detector{
     cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
 
     std::string info = cv::format("D:%.2fm Y:%.1f P:%.1f", distance, yaw, pitch);
+    std::string v = cv::format("velocity: %.2f", *cached_velocity_);
+    std::string s = cv::format("s: %.2f", *cached_s_);
+
     cv::putText(current_image_, info, {0, 150},
                 cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+    cv::putText(current_image_, v, {0, 250},
+                cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+    cv::putText(current_image_, s, {0, 350},
+                cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+
+
     result.pitch = pitch;
     result.distance = distance;
     result.yaw = yaw;
     result.found = 1;
-    msg_to_serial.yaw = yaw;                                                                                                                                                                                           
-    msg_to_serial.pitch = pitch;                                                                                                                                                                                         
-    msg_to_serial.is_find.data = 1; // 注意！！！！！！！！！！！！！！
+    msg_to_serial.yaw = yaw;
+    msg_to_serial.pitch = pitch;
+    msg_to_serial.is_find.data = 1;
+    if (cached_velocity_) {
+        msg_to_serial.s = *cached_s_;
+        cached_velocity_ = std::nullopt;
+        cached_s_ = std::nullopt;
+    }
     }
     cv::imshow("Green Light Detection", current_image_);
     cv::imshow("color split", mask);
     cv::waitKey(1);
-    result_pub_ = this->create_publisher<detector::msg::DealImg>("/deal_img",10);
-    serial_pub_ = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);
     result_pub_->publish(result);
     serial_pub_->publish(msg_to_serial);
 }
@@ -310,22 +326,9 @@ catch (cv_bridge::Exception& e) {
     }
 
 void VideoDetectorNode::CallBack(const detector::msg::DealImg::SharedPtr msg){
-    // 发布话题
-    serial_pub_ = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);
-    RCLCPP_INFO(this->get_logger(), "publish topic successfully!!!");
-
-    communicate_2025::msg::SerialInfo msg_to_serial; 
-
     RCLCPP_INFO(this->get_logger(), "calculate successfully!!!");
-    msg_to_serial.velocity = msg->velocity;    // 新增
-    
-    
-    /*
-        发布数据到下位机
-    */                                                                                                                                                                                                                                                                                          
-    serial_pub_->publish(msg_to_serial);
-    RCLCPP_INFO(this->get_logger(), "serial publish complete!!!");
-
+    cached_velocity_ = msg->velocity;
+    cached_s_ = msg->s;
 }
 
 }// namespace detector

@@ -3,7 +3,7 @@ veido_dector_node:
     circularity_thresh: 0.70              # 圆形度阈值
     aim_area: 200                         # 目标面积
     LIGHT_RADIUS: 0.03                    # 目标半径，单位m
-    mass: 0.02                            # 物体质量 (kg)*
+    mass: 0.2                            # 物体质量 (kg)*
     area: 0.0001                           # 迎风面积 (m^2)*
     cd: 0.3                               # 风阻系数
     rho: 1.225                            # 空气密度 (kg/m^3)
@@ -19,4 +19,7 @@ orbti_calculate:
     dt: 0.001   
     tolerance: 0.005
     max_possible_v0: 200.0
-    K: 0.00091875
+    mass: 0.2
+    n: 0.95                                # 能量损耗系数
+    k_s: 0.80                             # 弹簧的劲度系数
+    K: 0.000091875

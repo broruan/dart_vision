@@ -153,9 +153,9 @@ class VideoDetectorNode : public rclcpp::Node {
 //   bool IsReady() const;
 
  protected:
-  // /**
-  //  * @brief 图像回调函数
-  //  */
+  /**
+   * @brief 用于处理速度的回调
+   */
   void CallBack(const detector::msg::DealImg::SharedPtr msg);
   /**
    * @brief 图像处理函数
@@ -185,6 +185,9 @@ class VideoDetectorNode : public rclcpp::Node {
   rclcpp::Publisher<communicate_2025::msg::SerialInfo>::SharedPtr serial_pub_;
   // rclcpp::Subscription<communicate_2025::msg::SerialInfo>::SharedPtr serial_sub_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr text_pub_;
+  // 缓存速度信息
+  std::optional<double> cached_velocity_;
+  std::optional<double> cached_s_;
 };
 
 

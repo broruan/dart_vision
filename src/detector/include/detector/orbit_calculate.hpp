@@ -24,6 +24,9 @@ namespace Orbit {
         double K;                     // 阻力系数
         double tolerance;             // 误差容忍度 (m)
         double max_possible_v0;       // 发射机构能达到的最大初速度 (m/s)
+        double mass;
+        double n;
+        double k_s;
     };
 
 }

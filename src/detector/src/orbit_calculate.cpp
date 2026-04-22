@@ -1,18 +1,25 @@
 #include <tuple>
 #include "detector/orbit_calculate.hpp"
 #include <rclcpp/rclcpp.hpp>
+#include <cmath>
 
 
 namespace Orbit {
     OrbitCalculate::OrbitCalculate():Node("orbti_calculate"){
+        // 创建订阅
         result_sub = this->create_subscription<detector::msg::DealImg>("/deal_img", 
             rclcpp::SensorDataQoS().keep_last(1), 
             std::bind(&OrbitCalculate::solveVelocity, this, std::placeholders::_1));
+        // 创建发布
+        vel_pub_ = this->create_publisher<detector::msg::DealImg>("/velocity",10);
         this->g = this->declare_parameter("g",9.80665);
         this->dt = this->declare_parameter("dt",0.001);
         this->tolerance = this->declare_parameter("tolerance",0.005);
         this->max_possible_v0 = this->declare_parameter("max_possible_v0",150.0);
-        this->K = this->declare_parameter("K", 0.00091875);
+        this->mass = this->declare_parameter("mass", 0.2);
+        this->n = this->declare_parameter("n", 0.5);
+        this->k_s = this->declare_parameter("k_s", 0.80);
+        this->K = this->declare_parameter("K", 0.000091875);
     };
     OrbitCalculate::~OrbitCalculate(){};
     double OrbitCalculate::simulateFlight(const double& pitch, const double& dist, const double& test_v0){
@@ -32,14 +39,13 @@ namespace Orbit {
             x  += vx * this->dt;
             y  += vy * this->dt;
 
-            // 如果已经落地很深，提前终止
-            if (y < -5.0) break; 
+            // // 如果已经落地很深，提前终止(实际看场上的pitch)
+            // if (y < -5.0) break; 
         }
         return y;
     };
 
     void OrbitCalculate::solveVelocity(const detector::msg::DealImg::SharedPtr msg){
-        vel_pub_ = this->create_publisher<detector::msg::DealImg>("/velocity",10);
         detector::msg::DealImg m;
 
         double target_y = msg->distance * std::sin(msg->pitch);// 发射口距离目标高度
@@ -48,8 +54,9 @@ namespace Orbit {
         double min_v = 0.0;
         double max_v = this->max_possible_v0;
         double mid_v = 0.0;
-        int max_iter = 100;
+        int max_iter = 1000;
         int iter = 0;
+        double s = 0;
 
         while (iter < max_iter) {
             mid_v = (min_v + max_v) / 2.0;
@@ -57,6 +64,7 @@ namespace Orbit {
             // 检查误差
             if (std::abs(sim_y - target_y) < this->tolerance) {
                 m.velocity = mid_v;
+                RCLCPP_INFO(this->get_logger(), "velocity: %.2f  sim_y: %.2f  target_y: %.2f", mid_v, sim_y, target_y);
                 break; 
             }
             // 速度与高度正相关：打低了就加速，打高了就减速
@@ -67,9 +75,14 @@ namespace Orbit {
             }
             iter++;
         }
-        std::cerr << "need faster max_velocity!!!" << std::endl;
+        /** 
+         *   s = v * std::aqrt(m/nk)
+         *   飞镖拉力所需距离
+        */ 
+        s = m.velocity * std::sqrt(this->mass / (this->n * this->k_s));
+        m.s = s;  // 飞镖所需拉力的距离
+
         vel_pub_->publish(m);
-        RCLCPP_INFO(this->get_logger(), "velocity: %.2f", mid_v);
     };
 
 }
