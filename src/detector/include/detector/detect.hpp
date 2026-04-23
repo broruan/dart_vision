@@ -29,63 +29,11 @@ cv::Mat cameraMatrix = (cv::Mat_<double>(3,3) <<
 cv::Mat distCoeffs = (cv::Mat_<double>(1,5) << 
     -0.092404, 1.743791, 0.009456, 0.008387, 0.000000);
 
-/**
- * @brief 检测结果结构体
- * 
- * 用于表示单个目标检测结果
- */
-struct DetectionResult {
-  /// 目标框左上角x坐标
-  float x;
-  /// 目标框左上角y坐标
-  float y;
-  /// 目标框宽度
-  float width;
-  /// 目标框高度
-  float height;
-  /// 目标yaw角
-  float yaw;
-  /// 目标pitch角
-  float pitch;
-  /// 置信度分数 (0.0 - 1.0)
-  float confidence;
-  /// 类别ID
-  int class_id;
-  /// 类别名称
-  std::string class_name;
 
-  DetectionResult() 
-    : x(0), y(0), width(0), height(0), confidence(0.0), class_id(-1) {}
-
-  DetectionResult(float x, float y, float w, float h, float conf, int cls_id)
-    : x(x), y(y), width(w), height(h), confidence(conf), class_id(cls_id) {}
-};
 cv::Mat current_image_;
 
-/**
- * @brief 检测器配置结构体
- * 
- * 用于配置检测器的参数
- */
-struct DetectorConfig {
-  /// 置信度阈值
-  float confidence_threshold = 0.5f;
-  /// NMS (Non-Maximum Suppression) IOU阈值
-  float nms_threshold = 0.4f;
-  /// 输入图像预期宽度
-  int input_width = 416;
-  /// 输入图像预期高度
-  int input_height = 416;
-  /// 是否进行类别过滤
-  bool enable_class_filter = false;
-  /// 要检测的类别ID列表
-  std::vector<int> filter_class_ids;
-};
-/**
- * @brief 目标检测器基类
- * 
- * 提供基础的目标检测功能，支持多种深度学习框架
- */
+
+
 
 /**
  * @brief 视频流检测节点
@@ -132,25 +80,6 @@ class VideoDetectorNode : public rclcpp::Node {
                          const std::string& names_path,
                          const DetectorConfig& config);
 
-//   /**
-//    * @brief 设置输入图像话题
-//    */
-//   void SetInputImageTopic(const std::string& topic);
-
-//   /**
-//    * @brief 设置输出图像话题
-//    */
-//   void SetOutputImageTopic(const std::string& topic);
-
-//   /**
-//    * @brief 设置检测结果文本发布话题
-//    */
-//   void SetDetectionTextTopic(const std::string& topic);
-
-//   /**
-//    * @brief 检查节点是否已准备好
-//    */
-//   bool IsReady() const;
 
  protected:
   /**
@@ -161,11 +90,6 @@ class VideoDetectorNode : public rclcpp::Node {
    * @brief 图像处理函数
    */
   void dealImg(const sensor_msgs::msg::Image::SharedPtr msg);
-  /**
-   * @brief 将 OpenCV 图像转换为 ROS2 图像消息,其实感觉不用
-   */
-  sensor_msgs::msg::Image::UniquePtr ConvertMatToImageMsg(const cv::Mat& image,
-                                                        const std::string& encoding = "bgr8") const;
 
   /**
    * @brief 将检测结果绘制到图像上
