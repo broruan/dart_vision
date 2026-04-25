@@ -286,14 +286,14 @@ namespace detector{
     cv::arrowedLine(current_image_, projected[0], projected[2], {0,255,0},   2); // Y 绿
     cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
 
-    std::string info = cv::format("D:%.2fm Y:%.1f P:%.1f", distance, yaw, pitch);
-    std::string v = cv::format("velocity: %.2f", *cached_velocity_);
+    std::string info = cv::format("D:%.2fm Y:%.1f", distance, yaw);
+    // std::string v = cv::format("velocity: %.2f", *cached_velocity_);
     std::string s = cv::format("s: %.2f", *cached_s_);
 
     cv::putText(current_image_, info, {0, 150},
                 cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
-    cv::putText(current_image_, v, {0, 250},
-                cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+    // cv::putText(current_image_, v, {0, 250},
+    //             cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
     cv::putText(current_image_, s, {0, 350},
                 cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
 
@@ -303,13 +303,13 @@ namespace detector{
     result.yaw = yaw;
     result.found = 1;
     msg_to_serial.yaw = yaw;
-    msg_to_serial.pitch = pitch;
+    // msg_to_serial.pitch = pitch;
     msg_to_serial.is_find.data = 1;
-    if (cached_velocity_) {
+    if (cached_s_) {
         msg_to_serial.s = *cached_s_;
-        cached_velocity_ = std::nullopt;
+        // cached_velocity_ = std::nullopt;
         cached_s_ = std::nullopt;
-    }
+        }
     }
     cv::imshow("Green Light Detection", current_image_);
     cv::imshow("color split", mask);
@@ -327,7 +327,7 @@ catch (cv_bridge::Exception& e) {
 
 void VideoDetectorNode::CallBack(const detector::msg::DealImg::SharedPtr msg){
     RCLCPP_INFO(this->get_logger(), "calculate successfully!!!");
-    cached_velocity_ = msg->velocity;
+    // cached_velocity_ = msg->velocity;
     cached_s_ = msg->s;
 }
 

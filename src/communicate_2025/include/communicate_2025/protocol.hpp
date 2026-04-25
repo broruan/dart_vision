@@ -94,7 +94,6 @@ typedef struct GimbalControl_s {
 typedef struct GimbalControlWithVel_s {
     char find_bools;
     float yaw;
-    float pitch;
     float s; // 飞镖所需拉力的距离
 } GimbalControlWithVel;
 

@@ -412,7 +412,6 @@ void RMLink::GimbalWithVelCB(const communicate_2025::msg::SerialInfo::SharedPtr 
     GimbalControlWithVel tmp;
     tmp.find_bools = msg->is_find.data;
     tmp.yaw = msg->yaw;
-    tmp.pitch = msg->pitch;
     tmp.s = msg->s;
     RMLink::Send(0xA6, &tmp);
 }

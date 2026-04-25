@@ -33,6 +33,12 @@ namespace EKF
         cv::Scalar lower_red(160, 43, 46);
         cv::Scalar upper_red(180, 255, 255);
         cv::inRange(hsv, lower_red, upper_red, mask);
+
+
+        
+        //------------------------
+        // ต๗สิ
+        //------------------------
         cv::imshow("abstract", mask);
         cv::waitKey(1);
     };
