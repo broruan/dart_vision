@@ -16,6 +16,7 @@ find_package(OpenCV REQUIRED)
 find_package(communicate_2025 REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 # 增加接口文件
 rosidl_generate_interfaces(
@@ -28,6 +29,7 @@ rosidl_generate_interfaces(
 add_library(detector_lib SHARED
   src/detect.cpp
   src/orbit_calculate.cpp
+  src/EKF.cpp
 )
 
 target_include_directories(detector_lib PUBLIC
@@ -35,6 +37,7 @@ target_include_directories(detector_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp/>
   $<INSTALL_INTERFACE:include>
   ${OpenCV_INCLUDE_DIRS} # 引入 OpenCV 头文件
+  ${EIGEN3_INCLUDE_DIR}
 )
 
 # 使用 ament 文件方式链接 ROS 依赖
@@ -53,9 +56,10 @@ target_link_libraries(detector_lib
 )
 
 # 3. 编译可执行文件 (没有带 main 的)
-# 这里需要一个 src/detect_node.cpp 里面写上 int main()
+# 这里需要一个 src/xxx_node.cpp 里面写上 int main()
 add_executable(video_detector_node src/detect_node.cpp)
 add_executable(orbti_calculate src/orbit_calculate_node.cpp)
+add_executable(EKF_node src/EKF_node.cpp)
 
 target_link_libraries(video_detector_node
   detector_lib
@@ -65,8 +69,13 @@ target_link_libraries(orbti_calculate
   detector_lib
 )
 
+target_link_libraries(EKF_node
+  detector_lib
+
+)
+
 # 4. 安装
-install(TARGETS detector_lib video_detector_node orbti_calculate
+install(TARGETS detector_lib video_detector_node orbti_calculate EKF_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}

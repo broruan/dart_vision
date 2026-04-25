@@ -66,20 +66,6 @@ class VideoDetectorNode : public rclcpp::Node {
    */
     cv::Mat pre_img;
 
-  /**
-   * @brief 初始化检测器
-   *
-   * @param model_path 模型文件路径
-   * @param config_path 配置文件路径（YOLO等）
-   * @param names_path 类别名称文件路径
-   * @param config 检测器配置
-   * @return 是否初始化成功
-   */
-  bool InitializeDetector(const std::string& model_path,
-                         const std::string& config_path,
-                         const std::string& names_path,
-                         const DetectorConfig& config);
-
 
  protected:
   /**
@@ -91,16 +77,6 @@ class VideoDetectorNode : public rclcpp::Node {
    */
   void dealImg(const sensor_msgs::msg::Image::SharedPtr msg);
 
-  /**
-   * @brief 将检测结果绘制到图像上
-   */
-  cv::Mat DrawDetections(const cv::Mat& image,
-                        const std::vector<DetectionResult>& detections) const;
-
-  /**
-   * @brief 将检测结果转换为文本字符串
-   */
-  std::string DetectionsToString(const std::vector<DetectionResult>& detections) const;
 
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr image_sub_;
   rclcpp::Subscription<detector::msg::DealImg>::SharedPtr vel_sub_;

@@ -27,7 +27,7 @@ dart_vision/
 
 主要功能：
 - **位姿解算**：基于PnP算法计算目标的空间位置和姿态
-- **EKF 跟踪**：扩展卡尔曼滤波器实现目标状态跟踪(>-<开发中，可能用不上)
+- **EKF 跟踪**：扩展卡尔曼滤波器实现飞镖状态跟踪(>-<开发中，可能用不上)
 - **弹道解算**：根据检测到的目标位置和距离，计算飞行轨迹和发射角度
 - **与下位机通信**：将解算结果（yaw、pitch、距离）发送给下位机
 
@@ -43,7 +43,7 @@ dart_vision/
 | `/detect_info` | communicate_2025::msg::SerialInfo | 检测与解算结果 |
 | `/serial_info` | communicate_2025::msg::SerialInfo | 发送给下位机的数据 |
 | `/deal_img` | detector::msg::DealImg | 处理图像结果 |
-| `/velocity`| detector::msg::DealImg
+| `/velocity`| detector::msg::DealImg | 计算的飞镖初速度 |
 
 ### 3. communicate_2025
 裁判系统通信与串口通信模块。

@@ -1,0 +1,12 @@
+#include <rclcpp/rclcpp.hpp>
+#include "detector/EKF.hpp"
+
+int main(int argc, char** argv){
+    rclcpp::init(argc, argv);
+
+    auto node = std::make_shared<EKF::EKF_detector>("EKF_detector");
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+    return 0;
+
+}
