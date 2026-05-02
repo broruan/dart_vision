@@ -33,7 +33,9 @@ namespace detector{
         this->area = this->declare_parameter("area",0.001);
         this->cd = this->declare_parameter("cd",0.3);
         this->rho = this->declare_parameter("rho",1.255);
-
+        this->hsv_ = this->declare_parameter("HSV_or_NOT", 1);
+        this->debug_ = this->declare_parameter("debug_", true);
+        this->d_yaw = this->declare_parameter("d_yaw", 0.28);
 
 
         // 订阅图像话题
@@ -87,23 +89,33 @@ namespace detector{
     //         0.0f
     //     );
     // }
-
+     cv::Mat hsv, mask;
+    if(this->hsv_) {
     // ─────────────────────────────────────────
     // 2. HSV 颜色空间过滤绿色
     // ─────────────────────────────────────────
-    cv::Mat hsv, mask;
-    cv::cvtColor(current_image_, hsv, cv::COLOR_BGR2HSV);
+        cv::cvtColor(current_image_, hsv, cv::COLOR_BGR2HSV);
 
-    // 绿色 HSV 范围（根据实际灯光调整）
-    cv::Scalar lower_green(40, 50, 35);
-    cv::Scalar upper_green(80, 255, 255);
-    cv::inRange(hsv, lower_green, upper_green, mask);
+        // 绿色 HSV 范围（根据实际灯光调整）
+        cv::Scalar lower_green(40, 50, 35);
+        cv::Scalar upper_green(80, 255, 255);
+        cv::inRange(hsv, lower_green, upper_green, mask);
+    }else{
+    // ─────────────────────────────────────────
+    // 2. BGR 通道分离过滤绿色
+    // ─────────────────────────────────────────
+        std::vector<cv::Mat> channels;
+        cv::split(current_image_, channels);
+        mask = channels[1] - channels[0];
+
+    }
 
     // 形态学处理：先开运算去噪，再闭运算补孔
     cv::Mat kernel_1 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size2f{1, 1});// 开运算
     cv::Mat kernel_2 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size2f{5, 5});// 闭运算
     cv::morphologyEx(mask, mask, cv::MORPH_OPEN,  kernel_1, {-1,-1}, 2);
     cv::morphologyEx(mask, mask, cv::MORPH_CLOSE, kernel_2, {-1,-1}, 2);
+
 
     // ─────────────────────────────────────────
     // 3. 轮廓检测 + 圆形度筛选
@@ -189,53 +201,41 @@ namespace detector{
         const int N = 8;
         std::vector<cv::Point2f> image_points;
         std::vector<cv::Point3f> object_points;
-        // 用椭圆中心估计圆心的位置
         cv::Point2f center_2d = best_ellipse.center;
 
+        float a = best_ellipse.size.width  / 2.0f;
+        float b = best_ellipse.size.height / 2.0f;
+        float angle_rad = best_ellipse.angle * CV_PI / 180.0f;
 
-        // 取8个点
-        for(int i=0; i<N; ++i){
-            double theta = 2.0 * CV_PI * i / N;  // 均匀取 N 个角度                                                                                                                                                
-            float a = best_ellipse.size.width  / 2.0f;                                                                                                                                                             
-            float b = best_ellipse.size.height / 2.0f;
-            float angle_rad = best_ellipse.angle * CV_PI / 180.0f;// 转成弧度                                                                                                                                                 
-                                                                                                                                                                                                             
-            // 椭圆参数方程，计算椭圆边界上的点（已旋转）                                                                                                                                                          
+        // 固定的圆模型点（物体坐标系）与图像椭圆点按同一参数角建立对应
+        for(int i = 0; i < N; ++i){
+            double theta = 2.0 * CV_PI * i / N;
+
+            // 图像点：椭圆参数方程
             float px = best_ellipse.center.x + a * std::cos(theta) * std::cos(angle_rad)
-                                      - b * std::sin(theta) * std::sin(angle_rad);                                                                                                                           
+                                      - b * std::sin(theta) * std::sin(angle_rad);
             float py = best_ellipse.center.y + a * std::cos(theta) * std::sin(angle_rad)
-                                      + b * std::sin(theta) * std::cos(angle_rad);                                                                                                                           
-   
-            image_points.push_back(cv::Point2f(px, py)); 
-            // 对应的3D点：从圆心方向推断该点在圆上的角度
-            // 用该点相对椭圆中心的角度，映射回3D圆的角度
-            float dx = px - center_2d.x;
-            float dy = py - center_2d.y;
+                                      + b * std::sin(theta) * std::cos(angle_rad);
+            image_points.emplace_back(px, py);
 
-            // 去掉椭圆旋转角的影响，还原到对齐坐标系
-            float dx_local =  dx * std::cos(angle_rad) + dy * std::sin(angle_rad);
-            float dy_local = -dx * std::sin(angle_rad) + dy * std::cos(angle_rad);
-
-            // 归一化后得到3D圆上的角度
-            float theta_3D = std::atan2(dy_local / b, dx_local / a);
-
+            // 物体点：固定半径圆上同角度点
             object_points.emplace_back(
-                this->LIGHT_RADIUS * std::cos(theta_3D),
-                this->LIGHT_RADIUS * std::sin(theta_3D),
+                this->LIGHT_RADIUS * std::cos(theta),
+                this->LIGHT_RADIUS * std::sin(theta),
                 0.0f
             );
         }
 
         float radius_img = (std::min(best_ellipse.size.height, best_ellipse.size.width)) / 2.0f;
         double f = cameraMatrix.at<double>(0,0); // fx
-        double dist = (f * (this->LIGHT_RADIUS) / radius_img) * 2; 
+        double dist = (f * (this->LIGHT_RADIUS) / radius_img);
 
 
     // ─────────────────────────────────────────
     // 5. solvePnP 求解位姿
     // ─────────────────────────────────────────
     cv::Mat rvec, tvec;
-    cv::solvePnP(
+    bool pnp_ok = cv::solvePnP(
         object_points,
         image_points,
         cameraMatrix,
@@ -244,6 +244,11 @@ namespace detector{
         false,
         cv::SOLVEPNP_ITERATIVE
     );
+    if(pnp_ok) {
+        RCLCPP_INFO(this->get_logger(), "pnp success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }else{
+        RCLCPP_INFO(this->get_logger(), "Failed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
 
     // if (!success) {
     //     RCLCPP_WARN(this->get_logger(), "solvePnP failed.");
@@ -260,9 +265,10 @@ namespace detector{
 
     // 欧氏距离
     double distance = std::sqrt(tx*tx + ty*ty + tz*tz);
+    RCLCPP_INFO(this->get_logger(), "x: %.2f; y: %.2f; z: %.2f", tx, ty, tz);
 
     // Yaw：目标在相机水平方向的偏角（绕Y轴），右正左负
-    double yaw   = std::atan2(tx, tz) * 180.0 / CV_PI;
+    double yaw   = std::atan2(tx, tz) * 180.0 / CV_PI + this->d_yaw;
 
     // Pitch：目标在相机竖直方向的偏角（绕X轴，注意Y轴朝下），上正下负
     double pitch = std::atan2(-ty, tz) * 180.0 / CV_PI;
@@ -271,45 +277,49 @@ namespace detector{
     // ─────────────────────────────────────────
     // 7. 可视化（调试用）
     // ─────────────────────────────────────────
+    #if(debug_)
+    {
+        cv::ellipse(current_image_, best_ellipse, {0, 255, 0}, 2);
+        cv::circle(current_image_, center_2d, 4, {0, 0, 255}, -1);
 
-    cv::ellipse(current_image_, best_ellipse, {0, 255, 0}, 2);
-    cv::circle(current_image_, center_2d, 4, {0, 0, 255}, -1);
+        // 投影3D轴到图像平面，验证解算结果
+        std::vector<cv::Point3f> axis_points = {
+            {0,0,0}, {0.1f,0,0}, {0,0.1f,0}, {0,0,0.1f}
+        };
+        std::vector<cv::Point2f> projected;
+        cv::projectPoints(axis_points, rvec, tvec,
+                        cameraMatrix, distCoeffs, projected);
+        cv::arrowedLine(current_image_, projected[0], projected[1], {0,0,255},   2); // X 红
+        cv::arrowedLine(current_image_, projected[0], projected[2], {0,255,0},   2); // Y 绿
+        cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
 
-    // 投影3D轴到图像平面，验证解算结果
-    std::vector<cv::Point3f> axis_points = {
-        {0,0,0}, {0.1f,0,0}, {0,0.1f,0}, {0,0,0.1f}
-    };
-    std::vector<cv::Point2f> projected;
-    cv::projectPoints(axis_points, rvec, tvec,
-                      cameraMatrix, distCoeffs, projected);
-    cv::arrowedLine(current_image_, projected[0], projected[1], {0,0,255},   2); // X 红
-    cv::arrowedLine(current_image_, projected[0], projected[2], {0,255,0},   2); // Y 绿
-    cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
+        std::string info = cv::format("D:%.2fm Y:%.3f", distance, yaw);
+        // std::string v = cv::format("velocity: %.2f", *cached_velocity_);
+        std::string s = cv::format("s: %.2f", *cached_s_);
 
-    std::string info = cv::format("D:%.2fm Y:%.1f", distance, yaw);
-    // std::string v = cv::format("velocity: %.2f", *cached_velocity_);
-    std::string s = cv::format("s: %.2f", *cached_s_);
+        cv::putText(current_image_, info, {0, 150},
+                    cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+        // cv::putText(current_image_, v, {0, 250},
+        //             cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
+        cv::putText(current_image_, s, {0, 350},
+                    cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
 
-    cv::putText(current_image_, info, {0, 150},
-                cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
-    // cv::putText(current_image_, v, {0, 250},
-    //             cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
-    cv::putText(current_image_, s, {0, 350},
-                cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
-
-
+    }
+    #endif
     result.pitch = pitch;
     result.distance = distance;
     result.yaw = yaw;
     result.found = 1;
     msg_to_serial.yaw = yaw;
     // msg_to_serial.pitch = pitch;
-    msg_to_serial.is_find.data = 1;
-    if (cached_s_) {
-        msg_to_serial.s = *cached_s_;
-        // cached_velocity_ = std::nullopt;
-        cached_s_ = std::nullopt;
-        }
+    msg_to_serial.is_find.data = '1';
+    // if (cached_s_) {
+    //     msg_to_serial.s = *cached_s_;
+    //     // cached_velocity_ = std::nullopt;
+    //     cached_s_ = std::nullopt;
+    //     }
+    }else{
+        msg_to_serial.is_find.data = '0';
     }
     cv::imshow("Green Light Detection", current_image_);
     cv::imshow("color split", mask);

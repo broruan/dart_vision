@@ -94,7 +94,7 @@ typedef struct GimbalControl_s {
 typedef struct GimbalControlWithVel_s {
     char find_bools;
     float yaw;
-    float s; // 飞镖所需拉力的距离
+    // float s; // 飞镖所需拉力的距离
 } GimbalControlWithVel;
 
 // 0xA1 底盘控制

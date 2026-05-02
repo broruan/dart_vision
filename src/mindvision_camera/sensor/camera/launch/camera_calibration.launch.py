@@ -14,7 +14,22 @@ def generate_launch_description():
         default_value='./calibration_images',
         description='Directory to save calibration images'
     )
-    
+    mindvision_config_path_arg = DeclareLaunchArgument(
+        'mindvision_config_path',
+        default_value='',
+        description='MindVision .config file path'
+    )
+    sn_arg = DeclareLaunchArgument(
+        'sn',
+        default_value='',
+        description='Camera serial number, empty means first detected camera'
+    )
+    publish_fps_arg = DeclareLaunchArgument(
+        'publish_fps',
+        default_value='5.0',
+        description='Publishing rate for calibration image topic'
+    )
+
     # 相机节点
     camera_node = Node(
         package='camera',
@@ -23,6 +38,9 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': False,
+            'mindvision_config_path': LaunchConfiguration('mindvision_config_path'),
+            'sn': LaunchConfiguration('sn'),
+            'publish_fps': LaunchConfiguration('publish_fps'),
         }]
     )
     
@@ -40,6 +58,9 @@ def generate_launch_description():
     
     return LaunchDescription([
         save_directory_arg,
+        mindvision_config_path_arg,
+        sn_arg,
+        publish_fps_arg,
         camera_node,
         calibration_capture_node,
     ])

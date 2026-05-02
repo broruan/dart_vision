@@ -121,3 +121,11 @@ float32 low_gimbal_yaw   # 下云台 yaw 角
 1. 相机内参已标定存储于 `detector/include/detector/detect.hpp`
 2. 敌方队伍颜色和兵种类型需在配置文件中手动设置
 3. 调试模式下可查看 `/detect_info` 话题验证检测效果
+
+
+## 未来计划：
+- 标定相机
+- 看看用哪一个相机配置，要改一下camera4calibrate.cpp
+- 在detector里单独开一个话题发布打前哨站还是基地（应该是下位机发），然后在camera4calibrate.cpp里订阅这个话题，发布一个bool值，告诉它是打前哨站还是基地
+- 加一个communite_2025节点放在detector launch里
+- EKF跟踪模块可能用不上，先不开发了

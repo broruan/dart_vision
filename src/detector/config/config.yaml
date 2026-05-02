@@ -1,7 +1,7 @@
-veido_dector_node: 
+veido_detector_node: 
   ros__parameters:
     circularity_thresh: 0.70              # 圆形度阈值
-    aim_area: 200                         # 目标面积
+    aim_area: 20                         # 目标面积
     LIGHT_RADIUS: 0.03                    # 目标半径，单位m
     mass: 0.2                            # 物体质量 (kg)*
     area: 0.0001                           # 迎风面积 (m^2)*
@@ -12,6 +12,9 @@ veido_dector_node:
     tolerance: 0.005                      # 误差容忍度 (m)
     max_possible_v0: 200.0                 # 发射机构能达到的最大初速度 (m/s)*
     K: 0.00091875                         # 阻力系数 K = (0.5 * config.rho * config.cd * config.area) / config.mass *
+    HSV_or_NOT: 1                         #是否开启HSV识别
+    debug_: true                          # 是否开启调试模式
+    d_yaw: 0.28                           # yaw角偏转
 
 orbti_calculate:                                                              
   ros__parameters:
@@ -23,3 +26,4 @@ orbti_calculate:
     n: 0.95                                # 能量损耗系数
     k_s: 0.80                             # 弹簧的劲度系数
     K: 0.000091875
+    target_x: 16.5

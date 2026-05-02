@@ -285,6 +285,7 @@ void RMLink::Init_Pub_and_Sub() {
             rclcpp::SystemDefaultsQoS(),
             std::bind(&RMLink::GimbalWithVelCB, this, std::placeholders::_1)
         );
+        std::cout << "111111111" << std::endl;
     }
 
     if (this->robot_type_ == SENTINEL) {
@@ -412,7 +413,8 @@ void RMLink::GimbalWithVelCB(const communicate_2025::msg::SerialInfo::SharedPtr 
     GimbalControlWithVel tmp;
     tmp.find_bools = msg->is_find.data;
     tmp.yaw = msg->yaw;
-    tmp.s = msg->s;
+    // tmp.s = msg->s;
+    std::cout << "114514" << std::endl;
     RMLink::Send(0xA6, &tmp);
 }
 

@@ -20,10 +20,13 @@ namespace Orbit {
         this->n = this->declare_parameter("n", 0.5);
         this->k_s = this->declare_parameter("k_s", 0.80);
         this->K = this->declare_parameter("K", 0.000091875);
+
+        this->tar_x = this->declare_parameter("target_x", 16.5);
     };
     OrbitCalculate::~OrbitCalculate(){};
     double OrbitCalculate::simulateFlight(const double& pitch, const double& dist, const double& test_v0){
-        double target_x = dist * std::cos(pitch);// 目标水平距离
+        double target_x = this->tar_x;
+        // dist * std::cos(pitch);// 目标水平距离
         double x = 0.0;
         double y = 0.0;
         double vx = test_v0 * std::cos(pitch);

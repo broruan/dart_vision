@@ -25,12 +25,17 @@ cv::Mat cameraMatrix = (cv::Mat_<double>(3,3) <<
 0.000000, 0.000000, 1.000000
 );
 
-// 初始化畸变系数
+//初始化畸变系数
 cv::Mat distCoeffs = (cv::Mat_<double>(1,5) << 
     -0.092404, 1.743791, 0.009456, 0.008387, 0.000000);
+// cv::Mat cameraMatrix = (cv::Mat_<double>(3,3) << 
+//   6351.668421, 0.000000, 615.282519,
+//   0.00,        6339.565574, 586.540408,
+//   0.00,        0.000,       1.0);
 
+// cv::Mat distCoeffs = (cv::Mat_<double>(1,5) << 
+//   -0.027849, 0.421400, 0.002825, -0.002343, 0.00);
 
-cv::Mat current_image_;
 
 
 
@@ -45,6 +50,7 @@ class VideoDetectorNode : public rclcpp::Node {
    * @brief 定义配置文件变量
    */
   private:
+    cv::Mat current_image_;
     double ch;
     int a_area;
     float LIGHT_RADIUS;           //识别半径
@@ -52,6 +58,9 @@ class VideoDetectorNode : public rclcpp::Node {
     double area;                  // 迎风面积 (m^2)
     double cd;                    // 风阻系数
     double rho;                   // 空气密度 (kg/m^3)
+    int hsv_;                     // 是否用hsv
+    bool debug_;                  // 调试模式
+    double d_yaw;                 // yaw角偏差
  public:
   /**
    * @brief 构造函数

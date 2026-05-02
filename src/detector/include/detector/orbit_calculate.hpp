@@ -27,6 +27,7 @@ namespace Orbit {
         double mass;
         double n;
         double k_s;
+        double tar_x;
     };
 
 }

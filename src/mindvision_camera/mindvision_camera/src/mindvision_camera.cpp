@@ -1,4 +1,5 @@
 #include "mindvision_camera/mindvision_camera.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 namespace camera
 {
@@ -121,17 +122,21 @@ void Mindvision::Init()
 cv::Mat Mindvision::GetImage(const std::string & name)
 {
     //TODO: 检查是否会有丢帧、连帧问题
-    process_state = CameraGetImageBuffer(cam_[name].handle, &cam_[name].img.sFrameInfo, &cam_[name].img.pRawBuffer, 1000); CHECK
+    std::cout << "getting Img............................" << std::endl;;
+    try{
+        process_state = CameraGetImageBuffer(cam_[name].handle, &cam_[name].img.sFrameInfo, &cam_[name].img.pRawBuffer, 1000); CHECK
 
-    process_state = CameraImageProcess(cam_[name].handle, cam_[name].img.pRawBuffer, cam_[name].img.pRbgBuffer, &cam_[name].img.sFrameInfo); CHECK
-    cv::Mat result(
-        cv::Size(cam_[name].img.sFrameInfo.iWidth, cam_[name].img.sFrameInfo.iHeight),
-        cam_[name].img.sFrameInfo.uiMediaType == CAMERA_MEDIA_TYPE_MONO8 ? CV_8UC1 : CV_8UC3,
-        cam_[name].img.pRbgBuffer
-    );
-    process_state = CameraReleaseImageBuffer(cam_[name].handle, cam_[name].img.pRawBuffer); CHECK
-
-    return result;
+        process_state = CameraImageProcess(cam_[name].handle, cam_[name].img.pRawBuffer, cam_[name].img.pRbgBuffer, &cam_[name].img.sFrameInfo); CHECK
+        cv::Mat result(
+            cv::Size(cam_[name].img.sFrameInfo.iWidth, cam_[name].img.sFrameInfo.iHeight),
+            cam_[name].img.sFrameInfo.uiMediaType == CAMERA_MEDIA_TYPE_MONO8 ? CV_8UC1 : CV_8UC3,
+            cam_[name].img.pRbgBuffer
+        );
+        process_state = CameraReleaseImageBuffer(cam_[name].handle, cam_[name].img.pRawBuffer); CHECK
+        return result;
+    }catch(const std::exception& e) {
+        std::cerr << "error happen:" << e.what() << std::endl;
+    }
 }
 
 std::string Mindvision::analyse_state(int state)

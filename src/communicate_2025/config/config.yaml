@@ -11,4 +11,4 @@
     enemy_team_color: 1
     # 兵种类型
     # 0 哨兵，1 英雄，2 步兵， 3 工程，4 飞镖
-    robot_type: 1
+    robot_type: 4

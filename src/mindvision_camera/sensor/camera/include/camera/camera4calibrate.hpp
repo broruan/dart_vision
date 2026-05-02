@@ -4,6 +4,8 @@
 #include "camera/mindvision.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
+#include <atomic>
+#include <string>
 
 namespace sensor {
 
@@ -23,8 +25,11 @@ private:
     // 原始图像发布者
     rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr image_publisher_;
     std::thread thread_for_publish_; //获取图像的线程
+    std::atomic<int> failed_count_{0};
 
     std::shared_ptr<MindVision> mindvision_;
+    double publish_fps_{5.0};
+    std::string sn_;
 };
 
 } // namespace sensor
