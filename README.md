@@ -128,4 +128,6 @@ float32 low_gimbal_yaw   # 下云台 yaw 角
 - 看看用哪一个相机配置，要改一下camera4calibrate.cpp
 - 在detector里单独开一个话题发布打前哨站还是基地（应该是下位机发），然后在camera4calibrate.cpp里订阅这个话题，发布一个bool值，告诉它是打前哨站还是基地
 - 加一个communite_2025节点放在detector launch里
+- 加一个相机开关功能
+- 想想移动固定靶的的处理逻辑
 - EKF跟踪模块可能用不上，先不开发了

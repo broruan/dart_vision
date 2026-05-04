@@ -12,18 +12,18 @@ CameraForCalibrate::CameraForCalibrate(const rclcpp::NodeOptions& options):
     std::string default_camera_config;
     try {
         // default_camera_config = ament_index_cpp::get_package_share_directory("mindvision_camera") + "/Camera/Configs/Front_Camera-Group1.config";
-        default_camera_config = ament_index_cpp::get_package_share_directory("mindvision_camera") + "/Camera/Configs/yuki-Group1.config";
+        default_camera_config = ament_index_cpp::get_package_share_directory("mindvision_camera") + "/Camera/Configs/Front_Camera-Group1.config";
     } catch (const std::exception& e) {
         RCLCPP_WARN(this->get_logger(), "Could not find mindvision_camera package share: %s", e.what());
     }
 
-    std::string camera_config_path = "";
+    std::string camera_config_path;
     camera_config_path = this->declare_parameter("mindvision_config_path", default_camera_config);
     sn_ = this->declare_parameter("sn", std::string(""));// Ïà»úÐòÁÐºÅ
-    publish_fps_ = this->declare_parameter("publish_fps", 20.0);
+    publish_fps_ = this->declare_parameter("publish_fps", 60.0);
     if (publish_fps_ <= 0.0) {
         RCLCPP_WARN(this->get_logger(), "Invalid publish_fps %.2f, fallback to 5.0", publish_fps_);
-        publish_fps_ = 20.0;
+        publish_fps_ = 60.0;
     }
 
     mindvision_ = std::make_shared<MindVision>(camera_config_path, sn_);

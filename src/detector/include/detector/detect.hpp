@@ -15,6 +15,7 @@
 #include <cv_bridge/cv_bridge.hpp>
 #include <communicate_2025/msg/serial_info.hpp>
 #include <detector/msg/deal_img.hpp>
+#include <communicate_2025/msg/autoaim.hpp>
 using namespace std;
 
 namespace detector {
@@ -86,9 +87,15 @@ class VideoDetectorNode : public rclcpp::Node {
    */
   void dealImg(const sensor_msgs::msg::Image::SharedPtr msg);
 
+  /**
+   * @brief 接收下位机数据
+   */
+  void Serial_Recv(const communicate_2025::msg::Autoaim msg);
+
 
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr image_sub_;
   rclcpp::Subscription<detector::msg::DealImg>::SharedPtr vel_sub_;
+  rclcpp::Subscription<communicate_2025::msg::Autoaim>::SharedPtr serial_recv_;
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr image_pub_;
   rclcpp::Publisher<detector::msg::DealImg>::SharedPtr result_pub_;
   rclcpp::Publisher<communicate_2025::msg::SerialInfo>::SharedPtr serial_pub_;

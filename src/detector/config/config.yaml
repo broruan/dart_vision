@@ -1,7 +1,7 @@
 veido_detector_node: 
   ros__parameters:
     circularity_thresh: 0.70              # 圆形度阈值
-    aim_area: 20                         # 目标面积
+    aim_area: 10                         # 目标面积
     LIGHT_RADIUS: 0.03                    # 目标半径，单位m
     mass: 0.2                            # 物体质量 (kg)*
     area: 0.0001                           # 迎风面积 (m^2)*

@@ -83,8 +83,8 @@ CameraNode::CameraNode(const rclcpp::NodeOptions& options):
         "/image_for_armor",
         rclcpp::SensorDataQoS().keep_last(2)
     );
-    debug_auto_aim_mode_sub_ = this->create_subscription<communicate_2025::msg::Autoaim>("/communicate/debug/autoaim", rclcpp::SensorDataQoS(), std::bind(&CameraNode::AutoAimSwitch, this, std::placeholders::_1));
-    auto_aim_mode_sub_ = this->create_subscription<communicate_2025::msg::Autoaim>("/communicate/autoaim", rclcpp::SensorDataQoS(), std::bind(&CameraNode::AutoAimSwitch, this,std::placeholders::_1));
+    // debug_auto_aim_mode_sub_ = this->create_subscription<communicate_2025::msg::Autoaim>("/communicate/debug/autoaim", rclcpp::SensorDataQoS(), std::bind(&CameraNode::AutoAimSwitch, this, std::placeholders::_1));
+    // auto_aim_mode_sub_ = this->create_subscription<communicate_2025::msg::Autoaim>("/communicate/autoaim", rclcpp::SensorDataQoS(), std::bind(&CameraNode::AutoAimSwitch, this,std::placeholders::_1));
     thread_for_publish_ = std::thread(std::bind(&CameraNode::LoopForPublish, this));
 }
 
@@ -94,28 +94,28 @@ void CameraNode::InnerShot() {
     rclcpp::spin(inner_shot);
 }
 
-void CameraNode::AutoAimSwitch(const communicate_2025::msg::Autoaim::SharedPtr auto_aim_mode_swicth_msg)
-{
-    // 模式 0：自瞄 1：符
-    if (this->mode_ == auto_aim_mode_swicth_msg->mode) {
-        return;
-    }
-    this->mode_ = auto_aim_mode_swicth_msg->mode == 0 ? false : true;
-    if (mode_) {
-        // 符曝光
-        if (!rune_camera_config_path_.empty()) {
-            mindvision_->SetExposureTime(rune_camera_config_path_);
-        }
-        mindvision_->SetExposureTime(rune_use_exposure_);
-        enemy_color_or_rune_flag = "rune";
-    } else {
-        // 装甲板曝光
-        if (!camera_config_path_.empty()) {
-            mindvision_->SetExposureTime(camera_config_path_);
-        }
-        enemy_color_or_rune_flag = "armor";
-    }
-}
+// void CameraNode::AutoAimSwitch(const communicate_2025::msg::Autoaim::SharedPtr auto_aim_mode_swicth_msg)
+// {
+//     // 模式 0：自瞄 1：符
+//     if (this->mode_ == auto_aim_mode_swicth_msg->mode) {
+//         return;
+//     }
+//     this->mode_ = auto_aim_mode_swicth_msg->mode == 0 ? false : true;
+//     if (mode_) {
+//         // 符曝光
+//         if (!rune_camera_config_path_.empty()) {
+//             mindvision_->SetExposureTime(rune_camera_config_path_);
+//         }
+//         mindvision_->SetExposureTime(rune_use_exposure_);
+//         enemy_color_or_rune_flag = "rune";
+//     } else {
+//         // 装甲板曝光
+//         if (!camera_config_path_.empty()) {
+//             mindvision_->SetExposureTime(camera_config_path_);
+//         }
+//         enemy_color_or_rune_flag = "armor";
+//     }
+// }
 
 void CameraNode::GetImg() {
     if (videoflag) {

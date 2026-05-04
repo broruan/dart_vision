@@ -16,6 +16,7 @@
 #include <std_msgs/msg/string.hpp>
 #include <cv_bridge/cv_bridge.hpp>
 #include <communicate_2025/msg/serial_info.hpp>
+#include <communicate_2025/msg/autoaim.hpp>
 
 // using namespace std;
 // 需要写进yaml中的参数：HSV颜色范围、可选：开和闭运算的kernel、拟合圆半径误差
@@ -48,6 +49,11 @@ namespace detector{
             "/velocity",
             rclcpp::SensorDataQoS().keep_last(1),
             std::bind(&VideoDetectorNode::CallBack, this, std::placeholders::_1));
+
+        serial_recv_ = this->create_subscription<communicate_2025::msg::Autoaim>(
+            "/communicate/autoaim",
+            rclcpp::SystemDefaultsQoS(),
+            std::bind(&VideoDetectorNode::Serial_Recv, this, std::placeholders::_1));
 
         // 创建发布
         serial_pub_ = this->create_publisher<communicate_2025::msg::SerialInfo>("/detect_info", 10);
@@ -230,6 +236,10 @@ namespace detector{
         double f = cameraMatrix.at<double>(0,0); // fx
         double dist = (f * (this->LIGHT_RADIUS) / radius_img);
 
+        double cx = cameraMatrix.at<double>(0, 2);
+        //double cy = cameraMatrix.at<double>(1, 2);
+        double yaw_2 = std::atan2((center_2d.x - cx), f) + this->d_yaw;
+
 
     // ─────────────────────────────────────────
     // 5. solvePnP 求解位姿
@@ -277,7 +287,7 @@ namespace detector{
     // ─────────────────────────────────────────
     // 7. 可视化（调试用）
     // ─────────────────────────────────────────
-    #if(debug_)
+    if(debug_)
     {
         cv::ellipse(current_image_, best_ellipse, {0, 255, 0}, 2);
         cv::circle(current_image_, center_2d, 4, {0, 0, 255}, -1);
@@ -293,7 +303,7 @@ namespace detector{
         cv::arrowedLine(current_image_, projected[0], projected[2], {0,255,0},   2); // Y 绿
         cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
 
-        std::string info = cv::format("D:%.2fm Y:%.3f", distance, yaw);
+        std::string info = cv::format("D:%.2fm Y:%.3f Y_2:%.3f", distance, yaw, yaw_2);
         // std::string v = cv::format("velocity: %.2f", *cached_velocity_);
         std::string s = cv::format("s: %.2f", *cached_s_);
 
@@ -305,7 +315,6 @@ namespace detector{
                     cv::FONT_HERSHEY_SIMPLEX, 3, {255,255,0}, 3);
 
     }
-    #endif
     result.pitch = pitch;
     result.distance = distance;
     result.yaw = yaw;
@@ -339,6 +348,9 @@ void VideoDetectorNode::CallBack(const detector::msg::DealImg::SharedPtr msg){
     RCLCPP_INFO(this->get_logger(), "calculate successfully!!!");
     // cached_velocity_ = msg->velocity;
     cached_s_ = msg->s;
+}
+void VideoDetectorNode::Serial_Recv(const communicate_2025::msg::Autoaim msg) {
+    RCLCPP_INFO(this->get_logger(), "Recv Successfully, distance: %d, count: %d", msg.distance, msg.count);
 }
 
 }// namespace detector

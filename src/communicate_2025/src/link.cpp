@@ -138,7 +138,6 @@ void RMLink::Send(uint8_t type, T* buffer) {
         exit(-2);
     }
 }
-
 // 初始化发布者和订阅者
 void RMLink::Init_Pub_and_Sub() {
     // 创建发布者
@@ -163,7 +162,7 @@ void RMLink::Init_Pub_and_Sub() {
     {
         // 自瞄话题
         if (this->robot_type_ == SENTINEL || this->robot_type_ == HERO
-            || this->robot_type_ == INFANTRY) {
+            || this->robot_type_ == INFANTRY || this->robot_type_ == DART) {
             this->Pub_[AUTOAIM] = this->create_publisher<communicate_2025::msg::Autoaim>(
                 "/communicate/autoaim",
                 rclcpp::SystemDefaultsQoS()
@@ -343,12 +342,8 @@ void RMLink::PublishAutoaimDefault(rclcpp::PublisherBase::SharedPtr pub) {
     communicate_2025::msg::Autoaim msg;
     msg.header.stamp = this->now();
     msg.header.frame_id = "shooter";
-    msg.high_gimbal_yaw = 0;
-    msg.pitch = 0;
-    msg.enemy_team_color = 0;
-    msg.mode = 0;
-    msg.rune_flag = 0;
-    msg.low_gimbal_yaw = 0;
+    msg.distance = 0;
+    msg.count = 0;
     rclcpp::Publisher<communicate_2025::msg::Autoaim>::SharedPtr pub_completed =
         std::dynamic_pointer_cast<rclcpp::Publisher<communicate_2025::msg::Autoaim>>(pub);
     pub_completed->publish(msg);
@@ -376,18 +371,9 @@ void RMLink::PublishAutoaim(uint8_t* buffer, rclcpp::PublisherBase::SharedPtr pu
     communicate_2025::msg::Autoaim msg;
     msg.header.stamp = this->now();
     msg.header.frame_id = "shooter";
-    msg.high_gimbal_yaw = data->high_gimbal_yaw;
-    msg.pitch = data->pitch;
-    msg.enemy_team_color = this->enemy_team_color_; // 使用config文件中的敌方颜色
-    msg.mode = data->mode;
-    msg.rune_flag = data->rune_flag;
-    msg.low_gimbal_yaw = data->low_gimbal_yaw;
+    msg.distance = data->distance; 
+    msg.count = data->count;
 
-    if (msg.mode == 2 && this->robot_type_ == HERO) {
-        std::cerr << "PublishAutoaim is receiving message in ["
-                  << (this->debug_ ? "debug" : Robot_Type_String[this->robot_type_])
-                  << "] mode, expected in HERO mode. " << std::endl;
-    }
     rclcpp::Publisher<communicate_2025::msg::Autoaim>::SharedPtr pub_completed =
         std::dynamic_pointer_cast<rclcpp::Publisher<communicate_2025::msg::Autoaim>>(pub);
     pub_completed->publish(msg);

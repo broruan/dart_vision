@@ -75,12 +75,8 @@ inline std::vector<uint8_t> toVector(const Message& data) {
 
 // 0xB0 自瞄云台反馈
 typedef struct Autoaim_s {
-    float high_gimbal_yaw;
-    float pitch;
-    uint8_t enemy_team_color;
-    uint8_t mode;
-    uint8_t rune_flag;
-    float low_gimbal_yaw;
+    uint8_t distance;  // 目标距离
+    uint8_t count;     // 当前是第几发镖
 } Autoaim;
 
 // 0xA0 自瞄云台控制
