@@ -41,7 +41,7 @@ namespace detector{
 
         // 订阅图像话题
         image_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
-            "/image_pub",
+            "/raw_image",
             rclcpp::SensorDataQoS().keep_last(1),
             std::bind(&VideoDetectorNode::dealImg, this, std::placeholders::_1));
 

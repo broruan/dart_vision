@@ -5,6 +5,7 @@
 #include "inner_shot.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
+#include "communicate_2025/msg/autoaim.hpp"
 #include <opencv2/videoio.hpp>
 #include <mutex>
 #include <shared_mutex>
@@ -22,6 +23,8 @@ class CameraNode : public rclcpp::Node
 {
 public:
     explicit CameraNode(const rclcpp::NodeOptions& options);
+    void init_8mm();
+    void init_50mm();
 
 private:
     /**
@@ -76,7 +79,7 @@ private:
     // 是否外部输入视频流标志位
     bool videoflag;
     std::string video_path;
-    std::shared_ptr<MindVision> mindvision_;
+    std::shared_ptr<MindVision> mindvision_; // 8mm
     cv::VideoCapture capture;
     std::thread thread_for_publish_;    //获取图像的线程
     std::thread thread_for_inner_shot_; //获取图像的线程
@@ -92,10 +95,17 @@ private:
     std::atomic<int> frame_count2_{0};
 
     // 第二个相机相关
-    std::shared_ptr<MindVision> mindvision2_;
-    std::thread thread_for_capture2_;  // 第二个相机读取线程
+    std::shared_ptr<MindVision> mindvision2_;  // 50mm
 
-    bool use_camera2 = false;  // 是否启用第二个相机
+    std::thread thread_for_capture2_;  // 50mm相机读取线程
+    std::thread thread_for_capture1_;  // 8mm相机线程
+    rclcpp::Subscription<communicate_2025::msg::Autoaim>::SharedPtr serial_sub_;
+
+    void sub_callback(const communicate_2025::msg::Autoaim::SharedPtr msg);
+    std::atomic<uint8_t> count{0};    // 目前发射的飞镖数
+    std::atomic<uint8_t> distance{10}; // 目标距离
+
+    bool use_camera2 = false;  // 是否启用50mm相机
 };
 
 } // namespace sensor

@@ -15,6 +15,7 @@ add_compile_options(-g)
 
 find_package(ament_cmake_auto REQUIRED) 
 find_package(OpenCV REQUIRED)
+find_package(communicate_2025 REQUIRED)
 ament_auto_find_build_dependencies()
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
@@ -29,6 +30,8 @@ find_library(MVSDK_LIBRARY
   NAMES MVSDK
   HINTS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
 )
+
+ament_target_dependencies(${PROJECT_NAME} communicate_2025)
 target_include_directories(${PROJECT_NAME} PUBLIC ${OpenCV_INCLUDE_DIRS} include ${MVSDK_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ${MVSDK_LIBRARY})
 

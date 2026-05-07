@@ -27,10 +27,10 @@ def generate_launch_description():
                 parameters=[config],
             ),
             Node(
-                package='camera',
-                executable='camera_for_calibrate',
+                package='camera_for_dart',
+                executable='camera_node',
                 output='screen',
-                parameters=[config],
+                # parameters=[config],
             ),
         ]
     )
