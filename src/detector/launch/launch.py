@@ -15,6 +15,19 @@ def generate_launch_description():
     load_nodes=GroupAction(
         actions=[
             Node(
+                package='camera_for_dart',
+                executable='camera_node',
+                output='screen',
+                parameters=[{
+                    'videoflag': False,
+                    'inner_shot_flag': True,
+                    'rosbag_flag': False,
+                    'exposure_time': 5000,
+                    'gain': 64,
+                    'use_camera2': False,
+                }],
+            ),
+            Node(
                 package='detector',
                 executable='video_detector_node',
                 output='screen',
@@ -26,12 +39,12 @@ def generate_launch_description():
                 output='screen',
                 parameters=[config],
             ),
-            Node(
-                package='camera',
-                executable='camera_for_calibrate',
-                output='screen',
-                parameters=[config],
-            ),
+            # Node(
+            #     package='camera',
+            #     executable='camera_for_calibrate',
+            #     output='screen',
+            #     parameters=[config],
+            # ),
         ]
     )
     ld = LaunchDescription()

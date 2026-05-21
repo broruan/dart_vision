@@ -1,0 +1,22 @@
+ [Unit]                                                                        
+Description=Dart Vision ROS2 Service                                          
+After=network-online.target                                                   
+Wants=network-online.target                                                   
+                                                                                
+ [Service]                                                                  
+Type=simple                                                                   
+User=rm                                                                                                                             
+WorkingDirectory=/home/rm/dart_vision                        
+Restart=always                                                        
+RestartSec=2                                                                  
+StartLimitIntervalSec=0                                                       
+StandardOutput=journal                                                        
+StandardError=journal                                                         
+Environment=PYTHONUNBUFFERED=1                                                
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /home/rm/dart_vision/install/setup.bash && ros2 launch detector launch.py && /home/rm/dart_vision/src/communicate_2025/rm_start.bash'                                                           
+KillSignal=SIGINT                                                             
+TimeoutStopSec=20                                                             
+                                                                                
+ [Install]                                                                     
+WantedBy=multi-user.target                                                    
+                            
