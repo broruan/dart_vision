@@ -77,12 +77,15 @@ class VideoDetectorNode : public rclcpp::Node {
     bool debug_;                  // 调试模式
     double d_yaw;                 // yaw角偏差 8mm
     double d_yaw_2;		  // 50mm
-    uint8_t distance = 30;             // 下位机距离消息
+    uint8_t distance;             // 下位机距离消息
     uint8_t count;                // 第几发镖
     double f;
     double cx;
+    double cy;
     double dist;
     double yaw_2;
+    double pitch;              // 以防打掉飞机，用pitch判断
+    std::chrono::system_clock::time_point t1;
 
  public:
   /**

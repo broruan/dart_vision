@@ -14,9 +14,9 @@ video_detector_node:
     max_possible_v0: 200.0                 # 发射机构能达到的最大初速度 (m/s)*
     K: 0.00091875                         # 阻力系数 K = (0.5 * config.rho * config.cd * config.area) / config.mass *
     HSV_or_NOT: 1                         #是否开启HSV识别
-    debug_: true                          # 是否开启调试模式
+    debug_: false                          # 是否开启调试模式
     d_yaw: -0.60			 # 8mm
-    d_yaw_2: 0.36			  	# 50mm
+    d_yaw_2: 1.35			  	# 50mm
     # 0.195                           # yaw角偏转
 
 orbti_calculate:                                                              

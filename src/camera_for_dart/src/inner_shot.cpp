@@ -11,7 +11,7 @@ InnerShotNode::InnerShotNode():
     std::tm* now_tm = std::localtime(&t);
     std::string name;
     name = std::to_string(now_tm->tm_year + 1900) + "-" + std::to_string(now_tm->tm_mon + 1) + "-" + std::to_string(now_tm->tm_mday) + "-" + std::to_string(now_tm->tm_hour) + "-" + std::to_string(now_tm->tm_min) + "-" + std::to_string(now_tm->tm_sec);
-    video_writer_->open("./Camera/" + name + ".mp4", cv::VideoWriter::fourcc('m', 'p', '4', 'v'), 100, cv::Size(1280, 1024));
+    video_writer_->open("./Camera/" + name + ".mp4", cv::VideoWriter::fourcc('m', 'p', '4', 'v'), 100, cv::Size(3088, 2064));
 
     count_ = 0;
     video_count = 0;
@@ -34,7 +34,7 @@ void InnerShotNode::InnerShotCallback(const sensor_msgs::msg::Image::SharedPtr i
         std::tm* now_tm = std::localtime(&t);
         std::string name;
         name = std::to_string(now_tm->tm_year + 1900) + "-" + std::to_string(now_tm->tm_mon + 1) + "-" + std::to_string(now_tm->tm_mday) + "-" + std::to_string(now_tm->tm_hour) + "-" + std::to_string(now_tm->tm_min) + "-" + std::to_string(now_tm->tm_sec);
-        video_writer_->open("./Camera/" + name + std::to_string(video_count) + ".mp4", cv::VideoWriter::fourcc('m', 'p', '4', 'v'), 100, cv::Size(1280, 1024));
+        video_writer_->open("./Camera/" + name + std::to_string(video_count) + ".mp4", cv::VideoWriter::fourcc('m', 'p', '4', 'v'), 100, cv::Size(3088,2064));
         video_count++;
         count_ = 0;
     }

@@ -39,10 +39,12 @@ namespace detector{
         this->debug_ = this->declare_parameter("debug_", true);
         this->d_yaw = this->declare_parameter("d_yaw", 0.28);
         this->d_yaw_2 = this->declare_parameter("d_yaw_2", 0.28);
+        
+        t1 = std::chrono::system_clock::now();
 
-        // 初始化yaw为极大值，后面直接判断绝对值
-        this->yaw_2 = 1000.0;
         this->flag = 0;
+        this->yaw_2 = 3;
+        this->n = 1;
 
 
         // 订阅图像话题
@@ -81,6 +83,19 @@ namespace detector{
     
     void VideoDetectorNode::dealImg(const sensor_msgs::msg::Image::SharedPtr msg){
     try{
+    	auto t2 = std::chrono::system_clock::now();
+    	if (this->distance == 1 && flag == 0) {
+    	    yaw_2 = 3.0;
+    	    flag = 1;
+    	    t1 = t2;
+    	}
+    	if (this->distance == 1) {
+    	    auto elapsed_s = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count();
+    	    if (elapsed_s >= 3) {
+    	        yaw_2 = -yaw_2;   // 反转方向
+    	        t1 = t2;           // 重置计时，下一轮再等3秒
+    	    }
+    	}
     	RCLCPP_INFO(this->get_logger(), "dealImg start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         detector::msg::DealImg result;
         communicate_2025::msg::SerialInfo msg_to_serial;
@@ -156,11 +171,7 @@ namespace detector{
 
     for (auto& contour : contours) {
     	area = cv::contourArea(contour);
-    	if(std::abs(yaw_2) > 2.0) {
-		if (area < this->a_area) continue; // 面积过滤，去掉噪点
-	} else {
-		if (area < this->a_area_2) continue;
-	}
+	if (area < this->a_area_2) continue;
         double perimeter = cv::arcLength(contour, true);
         if (perimeter < 1e-5) continue;
 
@@ -189,6 +200,12 @@ namespace detector{
     //     RCLCPP_WARN(this->get_logger(), "No green light detected.");
     //     return;
     // }
+    if(yaw_1 == yaw_2 && yaw_2 != 3.0) {
+    	auto elapsed_s_2 = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count();
+    	if(elapsed_s_2 > 3) {
+    	    if(yaw_1 == yaw_2 && yaw_2 != 3.0) flag = 0; 
+    	}
+    }
     if(brect.width != 0 ){
 
     // ─────────────────────────────────────────
@@ -244,18 +261,21 @@ namespace detector{
         }
 
         // float radius_img = (std::min(best_ellipse.size.height, best_ellipse.size.width)) / 2.0f;
-    if(std::abs(yaw_2) >= 2.0 || std::abs(yaw_2) == 0) {
-    		flag = 0;
-		f = cameraMatrix_1.at<double>(0, 0); // fx
-		dist = (f * (this->LIGHT_RADIUS) / std::sqrt(true_area / CV_PI));
+    // if(std::abs(yaw_2) >= 2.0 || std::abs(yaw_2) == 0) {
+    // 		flag = 0;
+	// 	f = cameraMatrix_1.at<double>(0, 0); // fx
+	// 	dist = (f * (this->LIGHT_RADIUS) / std::sqrt(true_area / CV_PI));
 
-		cx = cameraMatrix_1.at<double>(0, 2);
-		//double cy = cameraMatrix.at<double>(1, 2);
-		yaw_2 = std::atan2((center_2d.x - cx), f) * 180.0 / CV_PI + this->d_yaw;
-	} 
-	else if(std::abs(yaw_2) < 2.0) flag++;
-	else if(flag > 20){
-	
+	// 	cx = cameraMatrix_1.at<double>(0, 2);
+    //     cy = cameraMatrix_1.at<double>(1, 2);
+	// 	//double cy = cameraMatrix.at<double>(1, 2);
+	// 	yaw_2 = std::atan2((center_2d.x - cx), f) * 180.0 / CV_PI + this->d_yaw;
+    //     pitch = std::atan2((center_2d.y - cy), f) * 180.0 / CV_PI;
+    //     if(std::abs(pitch) > 2) return;
+	// }
+	// else if(std::abs(yaw_2) < 2.0) {
+	//     flag++;
+
 		// f = cameraMatrix_2.at<double>(0, 0); // fx
 		// dist = (f * (this->LIGHT_RADIUS) / std::sqrt(true_area / CV_PI));
 
@@ -305,7 +325,11 @@ namespace detector{
     yaw_2   = std::atan2(tx, tz) * 180.0 / CV_PI + this->d_yaw_2;
 
     // // Pitch：目标在相机竖直方向的偏角（绕X轴，注意Y轴朝下），上正下负
-    // double pitch = std::atan2(-ty, tz) * 180.0 / CV_PI;
+    pitch = std::atan2(-ty, tz) * 180.0 / CV_PI;
+    if(std::abs(pitch) > 2) return;
+    
+	}else{
+        msg_to_serial.is_find.data = '0';
     }
     
     // ─────────────────────────────────────────
@@ -328,7 +352,7 @@ namespace detector{
         // cv::arrowedLine(current_image_, projected[0], projected[2], {0,255,0},   2); // Y 绿
         // cv::arrowedLine(current_image_, projected[0], projected[3], {255,0,0},   2); // Z 蓝
 
-        std::string info = cv::format("D: %.2f mY:%.3f", dist, yaw_2);
+        std::string info = cv::format("D: %.2f mY:%.3f P:%.3f", dist, yaw_2, pitch);
         // std::string v = cv::format("velocity: %.2f", *cached_velocity_);
         // std::string s = cv::format("s: %.2f", *cached_s_);
 
@@ -345,7 +369,6 @@ namespace detector{
     result.yaw = yaw_2;
     // result.found = 1;
      
-    msg_to_serial.yaw = yaw_2;
     // this->last_yaw = yaw_2;
     // 只是排除了有几帧的误检测，这是在稳定检测到目标的前提下才有用
     // msg_to_serial.pitch = pitch;
@@ -355,14 +378,18 @@ namespace detector{
     //     // cached_velocity_ = std::nullopt;
     //     cached_s_ = std::nullopt;
     //     }
-    }else{
-        msg_to_serial.is_find.data = '0';
-    }
+
     if (debug_) {
         cv::imshow("Green Light Detection", current_image_);
         cv::imshow("color split", mask);
         cv::waitKey(1);
     }
+    if(this->distance == 0) {
+    //yaw_2 = 0;
+    flag = 0;
+    }
+    yaw_1 = yaw_2;
+    msg_to_serial.yaw = yaw_2;
     result_pub_->publish(result);
     serial_pub_->publish(msg_to_serial);
 }
@@ -372,16 +399,17 @@ namespace detector{
 catch (cv_bridge::Exception& e) {
         RCLCPP_ERROR(this->get_logger(), "cv_bridge exception: %s", e.what());
     }
+    
     }
-
 void VideoDetectorNode::CallBack(const detector::msg::DealImg::SharedPtr msg){
     // cached_velocity_ = msg->velocity;
     cached_s_ = msg->s;
 }
 void VideoDetectorNode::Serial_Recv(const communicate_2025::msg::Autoaim msg) {
-    //this->distance = msg.distance;
+    this->distance = msg.distance;
     //this->count = msg.count;
 }
 
 }// namespace detector
+
 

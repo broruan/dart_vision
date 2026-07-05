@@ -37,6 +37,11 @@ public:
         return (i_camera_counts != 0) && (i_status == CAMERA_STATUS_SUCCESS);
     }
 
+    void SetAeState(bool enable) {
+    CameraSetAeState(h_camera, enable ? TRUE : FALSE);
+    }// 0关闭自动曝光
+
+
     void SetExposureTime(int time) {
         CameraSetExposureTime(h_camera, time);
     }
@@ -69,9 +74,9 @@ public:
         return CameraSetClrTempMode(h_camera, mode);
     }
 
-    void SetExposureTime(std::string mindvision_config) {
-        CameraReadParameterFromFile(h_camera, mindvision_config.data());
-    }
+    // void SetExposureTime(std::string mindvision_config) {
+    //     CameraReadParameterFromFile(h_camera, mindvision_config.data());
+    // }
     void SetGain(int gain) {
         CameraSetGain(h_camera, gain, gain, gain);
     }
@@ -95,4 +100,5 @@ private:
 } // namespace sensor
 
 #endif // MINDVISION_HPP
+
 

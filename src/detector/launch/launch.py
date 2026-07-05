@@ -20,7 +20,7 @@ def generate_launch_description():
                 output='screen',
                 parameters=[{
                     'videoflag': False,
-                    'inner_shot_flag': True,
+                    'inner_shot_flag': False,
                     'rosbag_flag': False,
                     'exposure_time': 5000,
                     'gain': 64,

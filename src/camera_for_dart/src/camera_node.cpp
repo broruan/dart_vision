@@ -23,8 +23,8 @@ CameraNode::CameraNode(const rclcpp::NodeOptions& options):
         rclcpp::SystemDefaultsQoS(),
         std::bind(&CameraNode::sub_callback, this, std::placeholders::_1)
     ); 
-    // 调试用
-   this->distance.store(10);
+//     // 调试用
+//    this->distance.store(10);
 
 
     // 是否使用视频流标志位
@@ -42,17 +42,17 @@ CameraNode::CameraNode(const rclcpp::NodeOptions& options):
     RCLCPP_INFO(this->get_logger(), "inner_shot flag %d", inner_shot_flag);
 
     // 分别初始化8mm和50mm相机
-    CameraNode::init_8mm();
+    // CameraNode::init_8mm();
     CameraNode::init_50mm();
     this->yaw.store(1000.0);
     this->flag = 0;
 
-    // 订阅图像处理话题，用yaw角判断相机
-    this->sub_res_ = this->create_subscription<detector::msg::DealImg>(
-        "/deal_img",
-        rclcpp::SystemDefaultsQoS(),
-        std::bind(&CameraNode::callback_res, this, std::placeholders::_1)
-    );
+    // // 订阅图像处理话题，用yaw角判断相机
+    // this->sub_res_ = this->create_subscription<detector::msg::DealImg>(
+    //     "/deal_img",
+    //     rclcpp::SystemDefaultsQoS(),
+    //     std::bind(&CameraNode::callback_res, this, std::placeholders::_1)
+    // );
     
 
 
@@ -104,67 +104,69 @@ CameraNode::CameraNode(const rclcpp::NodeOptions& options):
     timerTread.detach();
 }
 
-void CameraNode::init_8mm() {
-    mindvision_ = std::make_shared<MindVision>(
-        ament_index_cpp::get_package_share_directory("camera_for_dart") + "/config/mindvision_8.config",
-        this->declare_parameter("sn", "043081720018").c_str()
-    );
-    double exposure_time_max;
-    double exposure_time_min;
-    double exposure_time_step;
-    mindvision_->GetExposureTimeRange(exposure_time_min, exposure_time_max, exposure_time_step);
-    RCLCPP_INFO(
-        this->get_logger(),
-        "exposure_time_min: %f, exposure_time_max: %f, exposure_time_step: %f",
-        exposure_time_min,
-        exposure_time_max,
-        exposure_time_step
-    );
-    if (!mindvision_->GetCameraStatus()) {
-        RCLCPP_ERROR(this->get_logger(), "mindvision failed");
-        exit(-1);
-    }
-    int wb_mode = 1;
-    mindvision_->GetWbMode(wb_mode);
-    RCLCPP_INFO(this->get_logger(), "wb_mode(1为自动白平衡，0为手动): %d", wb_mode);
-    if (wb_mode == 0) {
-        int clr_temp_mode;
-        mindvision_->GetClrTempMode(clr_temp_mode);
-        RCLCPP_INFO(
-            this->get_logger(),
-            "ClrTmpMode(0为自动识别色温，1为指定预设，2为自定义): %d",
-            clr_temp_mode
-        );
-        if (mindvision_->SetClrTempMode(1) != 0) {
-            RCLCPP_ERROR(this->get_logger(), "SetClrTempMode failed");
-        } else {
-            mindvision_->GetClrTempMode(clr_temp_mode);
-            RCLCPP_INFO(
-                this->get_logger(),
-                "ClrTmpMode(0为自动识别色温，1为指定预设，2为自定义): %d",
-                clr_temp_mode
-            );
-        }
-        int is_setWB = mindvision_->SetOnceWB();
-        if (is_setWB == 0) {
-            RCLCPP_INFO(this->get_logger(), "SetOnceWB success");
-        } else {
-            RCLCPP_ERROR(this->get_logger(), "SetOnceWB failed,failed code: %d", is_setWB);
-        }
-    }
+// void CameraNode::init_8mm() {
+//     mindvision_ = std::make_shared<MindVision>(
+//         ament_index_cpp::get_package_share_directory("camera_for_dart") + "/config/mindvision_8.config",
+//         this->declare_parameter<std::string>("sn", "043081720018").c_str()
+//     );
+//     double exposure_time_max;
+//     double exposure_time_min;
+//     double exposure_time_step;
+//     mindvision_->GetExposureTimeRange(exposure_time_min, exposure_time_max, exposure_time_step);
+//     RCLCPP_INFO(
+//         this->get_logger(),
+//         "exposure_time_min: %f, exposure_time_max: %f, exposure_time_step: %f",
+//         exposure_time_min,
+//         exposure_time_max,
+//         exposure_time_step
+//     );
+//     if (!mindvision_->GetCameraStatus()) {
+//         RCLCPP_ERROR(this->get_logger(), "mindvision failed");
+//         exit(-1);
+//     }
+//     int wb_mode = 1;
+//     mindvision_->GetWbMode(wb_mode);
+//     RCLCPP_INFO(this->get_logger(), "wb_mode(1为自动白平衡，0为手动): %d", wb_mode);
+//     if (wb_mode == 0) {
+//         int clr_temp_mode;
+//         mindvision_->GetClrTempMode(clr_temp_mode);
+//         RCLCPP_INFO(
+//             this->get_logger(),
+//             "ClrTmpMode(0为自动识别色温，1为指定预设，2为自定义): %d",
+//             clr_temp_mode
+//         );
+//         if (mindvision_->SetClrTempMode(1) != 0) {
+//             RCLCPP_ERROR(this->get_logger(), "SetClrTempMode failed");
+//         } else {
+//             mindvision_->GetClrTempMode(clr_temp_mode);
+//             RCLCPP_INFO(
+//                 this->get_logger(),
+//                 "ClrTmpMode(0为自动识别色温，1为指定预设，2为自定义): %d",
+//                 clr_temp_mode
+//             );
+//         }
+//         int is_setWB = mindvision_->SetOnceWB();
+//         if (is_setWB == 0) {
+//             RCLCPP_INFO(this->get_logger(), "SetOnceWB success");
+//         } else {
+//             RCLCPP_ERROR(this->get_logger(), "SetOnceWB failed,failed code: %d", is_setWB);
+//         }
+//     }
 
-    mindvision_->Overlay();
-    mindvision_->SoftTriggerEnable();
+//     mindvision_->Overlay();
+//     mindvision_->SoftTriggerEnable();
 
-    mindvision_->SetExposureTime(exposure_time);
-}
+//     mindvision_->SetExposureTime(exposure_time);
+// }
 
 
 void CameraNode::init_50mm() {
     mindvision2_ = std::make_shared<MindVision>(
         ament_index_cpp::get_package_share_directory("camera_for_dart") + "/config/mindvision_50.config",
-        this->declare_parameter("sn2", "041071320344").c_str()
+        this->declare_parameter<std::string>("sn2", "041071320344").c_str()
     );
+    mindvision2_->SetAeState(0);
+    mindvision2_->SetExposureTime(1000);
     double exposure_time_max;
     double exposure_time_min;
     double exposure_time_step;
@@ -210,7 +212,7 @@ void CameraNode::init_50mm() {
     }
 
    // mindvision2_->Overlay();
-   mindvision2_->SoftTriggerEnable();
+   //mindvision2_->SoftTriggerEnable();
 
     mindvision2_->SetExposureTime(exposure_time);
 }
@@ -235,37 +237,34 @@ void CameraNode::GetImg() {
         }
     } else {
         // std::cout << distance.load() << std::endl;
-        if(std::abs((this->yaw).load()) >= 2.0 || std::abs((this->yaw).load()) == 0) {
-            flag = 0;
-            mindvision_->SoftTrigger();
-            if (!mindvision_->GetFrame(frame_)) {
-                failed_count++;
-                RCLCPP_ERROR(this->get_logger(), "mindvision get image failed");
-            } 
-            else if(std::abs(yaw) < 2.0) flag++;
-            else if(flag > 10){
-                frame_count_++;
-                // RCLCPP_DEBUG(this->get_logger(), "mindvision get image
-                // success. Size: %d x %d", frame_->cols, frame_->rows);
-                failed_count = 0;    
+        // if(std::abs((this->yaw).load()) >= 2.0 || std::abs((this->yaw).load()) == 0) {
+        //     flag = 0;
+        //     mindvision_->SoftTrigger();
+        //     if (!mindvision_->GetFrame(frame_)) {
+        //         failed_count++;
+        //         RCLCPP_ERROR(this->get_logger(), "mindvision get image failed");
+        //     } else {
+        //         frame_count_++;
+        //         failed_count = 0;
+        //     }
+        // } else if (std::abs(this->yaw.load()) < 2.0) {
+        //     flag++;
+        // }
 
-            }
+
+        // 第二个相机同时读取
+        //mindvision2_->SoftTrigger();
+
+        if (!mindvision2_->GetFrame(frame_)) {
+            failed_count2++;
+            RCLCPP_ERROR(this->get_logger(), "mindvision2 get image failed");
         } else {
-
-            // 第二个相机同时读取
-            mindvision2_->SoftTrigger();
-
-            if (!mindvision2_->GetFrame(frame_)) {
-            	flag++;
-                failed_count2++;
-                RCLCPP_ERROR(this->get_logger(), "mindvision2 get image failed");
-            } else {
-                frame_count2_++;
-                failed_count2 = 0;
-            }
+            frame_count2_++;
+            failed_count2 = 0;
         }
         
     }
+        
     
 
     if (failed_count > 10) {
@@ -390,8 +389,8 @@ void CameraNode::sub_callback(const communicate_2025::msg::Autoaim::SharedPtr ms
 }
 
 void CameraNode::callback_res(const detector::msg::DealImg::SharedPtr msg) {
-    this->yaw.store(msg->yaw);
-    RCLCPP_INFO(this->get_logger(), "Yaw: %.2f", this->yaw.load());
+    //this->yaw.store(msg->yaw);
+    //RCLCPP_INFO(this->get_logger(), "Yaw: %.2f", this->yaw.load());
 }
 
 } // namespace sensor
@@ -399,4 +398,5 @@ void CameraNode::callback_res(const detector::msg::DealImg::SharedPtr msg) {
 #include "rclcpp_components/register_node_macro.hpp"
 
 RCLCPP_COMPONENTS_REGISTER_NODE(sensor::CameraNode)
+
 
